@@ -1,11 +1,27 @@
+/* Variables globales */
+:root {
+    --color-primary: #00b4d8;     /* Azul eléctrico energético */
+    --color-primary-dark: #0077be; /* Azul oscuro para gradiente */
+    --color-secondary: #e3f2fd;   /* Azul muy claro para fondo */
+    --color-accent: #ff6b6b;      /* Coral/rojo energético para acentos */
+    --color-text: #2b2d42;        /* Gris oscuro para texto */
+    --color-border: #b3e0ff;      /* Azul claro para bordes */
+    --color-card: #ffffff;        /* Blanco para tarjetas */
+    --color-background: #f0f7ff;  /* Nuevo color de fondo base */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    --gradient-background: linear-gradient(160deg, #e3f2fd 0%, #f0f7ff 100%);
+}
+
 /* Estilos base */
 body {
-    font-family: sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    background: var(--gradient-background);
+    color: var(--color-text);
     line-height: 1.6;
-    position: relative;
+    min-height: 100vh;
 }
 
 .container {
@@ -15,9 +31,9 @@ body {
 }
 
 .main-header {
-    background-color: #fff;
-    padding: 15px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: var(--gradient-primary);
+    padding: 1rem 0;
+    box-shadow: var(--shadow-md);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,9 +71,8 @@ body {
 }
 
 .logo a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+    color: white;
+    font-weight: 600;
 }
 
 .logo a:hover {
@@ -86,25 +101,41 @@ input[type="text"] {
     max-width: 400px;
 }
 
-button {
-    padding: 12px 20px;
-    background-color: #ff6b6b;
+button,
+#mrForm button,
+.registro-medidas-form button {
+    background: var(--gradient-primary);
     color: white;
     border: none;
     border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-button:hover {
-    background-color: #e45757;
+button:hover,
+#mrForm button:hover,
+.registro-medidas-form button:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
 }
 
 .main-nav {
-    background-color: #f9f9f9;
+    background-color: var(--color-card);  /* Cambiamos transparent por el color de card */
     padding: 10px 20px;
     border-radius: 5px;
     width: 100%;
+    box-shadow: var(--shadow-sm);
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
 }
 
 .main-nav ul {
@@ -118,13 +149,16 @@ button:hover {
 
 .main-nav ul li a {
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    color: var(--color-text);  /* Cambiamos white por el color de texto */
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .main-nav ul li a:hover {
-    color: #ff6b6b;
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
 }
 
 .main-area {
@@ -141,11 +175,14 @@ button:hover {
     gap: 20px;
 }
 
-.scrolling-section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.scrolling-section, 
+.calculator-form,
+.medidas-comparacion,
+.sidebar {
+    background-color: var(--color-card);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
 }
 
 .horizontal-scroll {
@@ -343,15 +380,17 @@ h2 {
 .calculator-form {
     flex: 1 1 320px;
     max-width: 400px;
-    background: #fff;
+    background: var(--color-card);
     padding: 24px 16px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
 }
 
 .calculator-form h2 {
     text-align: center;
     margin-bottom: 24px;
+    color: var(--color-text);
 }
 
 #mrForm {
@@ -362,24 +401,31 @@ h2 {
 
 #mrForm label {
     margin-bottom: 2px;
+    color: var(--color-text);
 }
 
 #mrForm input,
 #mrForm select {
-    padding: 6px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
 }
 
 #mrForm button {
-    padding: 8px;
-    border-radius: 4px;
+    background: var(--gradient-primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
     border: none;
-    background: #ff7b7b;
-    color: #fff;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    margin-top: 8px;
+    transition: all 0.3s ease;
+    margin-top: 16px;
+}
+
+#mrForm button:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
 }
 
 .resultado {
@@ -759,20 +805,18 @@ h2 {
             .measure-field::after {
             display: none !important;
             }
-}
         }
-        .registro-medidas-form {
+        }
+.registro-medidas-form {
             margin-top: 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 12px;
         }
-        .registro-medidas-form button {
-            margin-top: 10px;
+.registro-medidas-form button {
             padding: 8px 20px;
             border-radius: 5px;
-            background: #ff7b7b;
             color: #fff;
             border: none;
             font-weight: bold;
@@ -948,15 +992,15 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #4caf50;
-    color: #fff;
+    background: var(--color-primary);
+    color: white;
     padding: 16px 32px;
     border-radius: 8px;
     font-weight: bold;
     font-size: 1.1em;
-    box-shadow: 0 2px 8px #0003;
+    box-shadow: var(--shadow-md);
     z-index: 9999;
-    animation: fadeInOut 2;
+    animation: fadeInOut 2.5s;
     text-align: center;
 }
 @keyframes fadeInOut {
