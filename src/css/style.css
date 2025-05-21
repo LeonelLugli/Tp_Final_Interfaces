@@ -837,21 +837,7 @@ h2 {
     }
 }
   
-        /* Responsive: apila los campos debajo de la figura en pantallas muy chicas */
-        @media (max-width: 400px) {
-
-            .measure-field {
-                position: static !important;
-                margin: 6px 0;
-                transform: none !important;
-            }
-            @media (max-width: 400px) {
-            .measure-field::before,
-            .measure-field::after {
-            display: none !important;
-            }
-        }
-        }
+        
 .registro-medidas-form {
             margin-top: 24px;
             display: flex;
@@ -964,7 +950,7 @@ h2 {
         font-size: 1em;
     }
     .main-nav ul li a:hover {
-        background-color: #ddd;
+        background-color: var(--color-secondary);
         color: #ff6b6b;
     }
     .horizontal-scroll {
@@ -1315,4 +1301,274 @@ h2 {
     content: "⚠️";
     margin-right: 0.5rem;
     font-size: 1.2rem;        /* Emoji más grande */
+}
+
+   
+
+
+@media (max-width: 768px) and (min-width: 513px) {
+    .main-nav {
+        width: 100%;
+        padding: 1rem;
+        background: var(--gradient-header); /* Mantiene el mismo fondo que el exterior */
+        margin: 0;
+    }
+
+    .main-nav ul {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0;
+    }
+
+    .main-nav ul li {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-nav ul li a {
+        width: 90%;
+        padding: 0.75rem 0;
+        text-align: center;
+        background: var(--color-card);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .main-nav ul li a:hover {
+        background: var(--color-secondary);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+    }
+}
+/* Ajustes unificados para móviles */
+@media (max-width: 512px) {
+    /* Contenedor principal y body */
+    body, 
+    .container {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Header y navegación */
+    .main-header {
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .header-top {
+        width: 100%;
+        padding: 0 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .user-actions {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .logo {
+        text-align: center;
+        width: 100%;
+    }
+
+     
+    /* Navegación */
+    .main-nav {
+        width: 100%;
+        margin: 0;
+        padding: 1rem;
+        background: var(--gradient-header);
+    }
+
+    .main-nav ul {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0;
+    }
+
+    .main-nav ul li {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-nav ul li a {
+        width: 90%;
+        padding: 0.75rem 0;
+        text-align: center;
+        background: var(--color-card);
+        border-radius: 8px;
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* Contenido principal y formularios */
+    main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .calculator-flex {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        margin: 0 auto;
+    }
+
+    .calculator-form {
+        width: 90%;
+        min-width: auto;
+        max-width: 90%;
+        padding: 1.5rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+.form-group label {
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+    }
+    button {
+        width: 100%;
+        max-width: 90%;
+    }
+    /* Inputs y selects */
+    select,
+    input[type="number"],
+    input[type="text"] {
+        width: 100%;
+        max-width: 100%;
+        padding: 0.75rem;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        background: white;
+        --webkit-appearance: none;
+        box-sizing: border-box;
+    }
+
+    /* Registro de medidas */
+    .registro-medidas-form input {
+        width: 100%;
+        max-width: 100%;
+        padding: 0.5rem;
+        margin: 0.25rem 0;
+        box-sizing: border-box;
+    }
+
+    .registro-medidas-form label {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.25rem;
+    }
+
+    /* Tabla RM */
+    .rm-table {
+        font-size: 0.9rem;
+        border-spacing: 0 2px;
+    }
+
+    .rm-table th,
+    .rm-table td {
+        padding: 0.5rem 0.25rem;
+    }
+
+    /* Textos y advertencias */
+    h1, h2 {
+        font-size: 1.5rem;
+    }
+
+    .warning-text {
+        width: 95%;
+        margin: 1rem auto;
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    /* Campos de medida */
+    .measure-field {
+        position: static !important;
+        margin: 6px 0;
+        transform: none !important;
+    }
+
+    .measure-field::before,
+    .measure-field::after {
+        display: none !important;
+    }
+    /* Footer */
+    .main-footer {
+        width: 100%;
+        background: var(--gradient-primary);
+        padding: 1.5rem 1rem;
+        margin-top: auto;
+    }
+
+    .footer-content {
+        width: 100%;
+        max-width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 0;
+    }
+
+    .footer-links {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer-links li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+    .footer-copyright {
+        width: 100%;
+        text-align: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: white;
+        font-size: 0.9rem;
+    }
 }
