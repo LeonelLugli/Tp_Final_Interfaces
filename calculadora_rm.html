@@ -89,9 +89,9 @@ document.getElementById('rmForm').addEventListener('submit', function(e) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${i}</td>
-            <td>${Math.round(pesoRecomendado * 10) / 10}</td>
+            <td>${Math.round(pesoRecomendado * 2) / 2}</td>
             <td>${Math.round(porcentaje)}%</td>
-        `;
+`;
         
         // Resaltamos la fila que corresponde a las repeticiones ingresadas
         if(i === reps) {
