@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Rutina - Fitness App</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0099ff">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <div class="header-top">
+                <div class="logo">
+                    <a href="index.html">Fitness</a>
+                </div>
+                <div class="user-actions">
+                    <a href="#" class="btn-login">Iniciar Sesión</a>
+                    <a href="#" class="btn-register">Registrarse</a>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="registro_medidas.html">Body</a></li>
+                    <li><a href="calculadora_mr.html">Calculadora de Mr</a></li>
+                    <li><a href="calculadora_rm.html">Calculadora de Rm</a></li>
+                    <li><a href="entrenamientos_gimnasio.html">Entrenamientos Gimnasio</a></li>
+                    <li><a href="entrenamientos_casa.html">Entrenamientos Casa</a></li>
+                    <li><a href="crear_rutina.html">Crear Rutina</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="routine-creator">
+            <h1>Crear Rutina Personalizada</h1>
+            
+            <form id="routineForm" class="routine-form">
+                <div class="form-group">
+                    <label for="routineName">Nombre de la rutina:</label>
+                    <input type="text" id="routineName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="routineType">Tipo de rutina:</label>
+                    <select id="routineType" required>
+                        <option value="">Seleccione tipo</option>
+                        <option value="gimnasio">Gimnasio</option>
+                        <option value="casa">Casa</option>
+                    </select>
+                </div>
+
+                <div id="exercisesList" class="exercises-list">
+                    <!-- Aquí se agregarán los ejercicios -->
+                </div>
+
+                <button type="button" id="addExercise" class="btn-secondary">
+                    Agregar Ejercicio
+                </button>
+
+                <button type="submit" class="btn-primary">
+                    Guardar Rutina
+                </button>
+            </form>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <ul class="footer-links">
+                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Fitness App. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => console.log("✅ Service Worker registrado:", reg.scope))
+                .catch(err => console.error("❌ Error al registrar el Service Worker:", err));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrenamientos en Casa - Fitness App</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0099ff">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <div class="header-top">
+                <div class="logo">
+                    <a href="index.html">Fitness</a>
+                </div>
+                <div class="user-actions">
+                    <a href="#" class="btn-login">Iniciar Sesión</a>
+                    <a href="#" class="btn-register">Registrarse</a>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="registro_medidas.html">Body</a></li>
+                    <li><a href="calculadora_mr.html">Calculadora de Mr</a></li>
+                    <li><a href="calculadora_rm.html">Calculadora de Rm</a></li>
+                    <li><a href="entrenamientos_gimnasio.html">Entrenamientos Gimnasio</a></li>
+                    <li><a href="entrenamientos_casa.html">Entrenamientos Casa</a></li>
+                    <li><a href="crear_rutina.html">Crear Rutina</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="training-content">
+            <h1>Entrenamientos en Casa</h1>
+            
+            <div class="training-filters">
+                <select id="equipment">
+                    <option value="">Equipamiento</option>
+                    <option value="ninguno">Sin equipamiento</option>
+                    <option value="basico">Equipamiento básico</option>
+                    <option value="completo">Equipamiento completo</option>
+                </select>
+                
+                <select id="duration">
+                    <option value="">Duración</option>
+                    <option value="15">15 minutos</option>
+                    <option value="30">30 minutos</option>
+                    <option value="45">45 minutos</option>
+                </select>
+            </div>
+
+            <div class="workouts-grid">
+                <!-- Las rutinas se cargarán dinámicamente aquí -->
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <ul class="footer-links">
+                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Fitness App. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => console.log("✅ Service Worker registrado:", reg.scope))
+                .catch(err => console.error("❌ Error al registrar el Service Worker:", err));
+        }
+    </script>
+</body>
+</html>
