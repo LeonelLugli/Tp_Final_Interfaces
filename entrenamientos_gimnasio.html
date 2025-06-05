@@ -33,31 +33,32 @@
         </header>
         
         <main class="training-content">
-            <h1>Entrenamientos en Gimnasio</h1>
-            
-            <div class="training-filters">
-                <select id="muscleGroup">
-                    <option value="">Grupo Muscular</option>
-                    <option value="pecho">Pecho</option>
-                    <option value="espalda">Espalda</option>
-                    <option value="piernas">Piernas</option>
-                    <option value="hombros">Hombros</option>
-                    <option value="brazos">Brazos</option>
-                    <option value="abdominales">Abdominales</option>
-                </select>
-                
-                <select id="difficulty">
-                    <option value="">Dificultad</option>
-                    <option value="principiante">Principiante</option>
-                    <option value="intermedio">Intermedio</option>
-                    <option value="avanzado">Avanzado</option>
-                </select>
-            </div>
+    <h1>Entrenamientos en Gimnasio</h1>
+    
+    <div class="training-filters">
+        <select id="frequency" onchange="filterRoutines()">
+            <option value="">Seleccione frecuencia</option>
+            <option value="full-body">Full Body (3 días)</option>
+            <option value="upper-lower">Upper/Lower (4 días)</option>
+            <option value="push-pull">Push/Pull/Legs (6 días)</option>
+        </select>
+        
+        <select id="difficulty" onchange="filterRoutines()">
+            <option value="">Seleccione nivel</option>
+            <option value="principiante">Principiante</option>
+            <option value="avanzado">Avanzado</option>
+        </select>
+    </div>
 
-            <div class="workouts-grid">
-                <!-- Las rutinas se cargarán dinámicamente aquí -->
-            </div>
-        </main>
+    <div id="routineMessage" class="routine-message">
+        Seleccione frecuencia y nivel para ver las rutinas disponibles
+    </div>
+
+     <!-- Contenedor donde aparecerán las rutinas -->
+    <div id="workoutsGrid" class="workouts-grid hidden">
+        <!-- Aquí se cargarán dinámicamente las rutinas -->
+    </div>
+</main>
 
         <footer class="main-footer">
             <div class="footer-content">
@@ -72,7 +73,7 @@
             </div>
         </footer>
     </div>
-
+    <script src="rutinas.js"></script>
     <script src="script.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
@@ -83,3 +84,5 @@
     </script>
 </body>
 </html>
+
+

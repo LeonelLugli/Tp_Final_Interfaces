@@ -1572,3 +1572,170 @@ h2 {
         font-size: 0.9rem;
     }
 }
+/* estilos de entrenamiento en gimnasio*/
+.hidden {
+    display: none;
+}
+
+.routine-message {
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+}
+
+.training-filters {
+    margin-bottom: 2rem;
+}
+
+.training-filters select {
+    padding: 0.75rem;
+    margin: 0.5rem;
+    min-width: 200px;
+}
+.training-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.training-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.routine-message {
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-text-light);
+}
+
+.workouts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.workout-columns {
+    margin: 1.5rem 0;
+    width: 100%;
+}
+
+
+.workout-columns {
+    margin: 1.5rem 0;
+    width: 100%;
+}
+
+.day-tab {
+    background: var(--color-background-light);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.day-tab h4 {
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.5rem;
+}
+
+.exercise-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.exercise-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.exercise-list li:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 1200px) {
+    .workout-columns.three-columns,
+    .workout-columns.ppl-grid .ppl-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .workout-columns.three-columns,
+    .workout-columns.two-columns,
+    .workout-columns.ppl-grid .ppl-row {
+        grid-template-columns: 1fr;
+    }
+}
+.workout-columns.three-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.workout-columns.two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.workout-columns.ppl-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.ppl-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+.training-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.training-content h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-text);
+    font-size: 2rem;
+}
+
+
+.workout-card h3 {
+    text-align: center;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.workout-card {
+    background: var(--color-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.routine-info {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--color-secondary);
+    border-radius: 8px;
+}
+
+.routine-info p {
+    margin: 0.5rem 0;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+
