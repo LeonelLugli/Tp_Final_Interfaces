@@ -38,24 +38,24 @@
         <main class="training-content">
             <h1>Entrenamientos en Casa</h1>
             
-            <div class="training-filters">
-                <select id="equipment">
-                    <option value="">Equipamiento</option>
-                    <option value="ninguno">Sin equipamiento</option>
-                    <option value="basico">Equipamiento básico</option>
-                    <option value="completo">Equipamiento completo</option>
-                </select>
-                
-                <select id="duration">
-                    <option value="">Duración</option>
-                    <option value="15">15 minutos</option>
-                    <option value="30">30 minutos</option>
-                    <option value="45">45 minutos</option>
-                </select>
-            </div>
-
-            <div class="workouts-grid">
-                <!-- Las rutinas se cargarán dinámicamente aquí -->
+    <div class="training-filters">
+        <select id="frequency" onchange="filterRoutines()">
+            <option value="">Seleccione frecuencia</option>
+            <option value="3">3 veces por semana</option>
+            <option value="4">4 veces por semana</option>
+        </select>
+        
+        <select id="difficulty" onchange="filterRoutines()">
+            <option value="">Seleccione nivel</option>
+            <option value="principiante">Principiante</option>
+            <option value="avanzado">Avanzado</option>
+        </select>
+    </div>
+        <div id="routineMessage" class="message hidden">
+            Selecciona frecuencia y nivel para ver las rutinas disponibles
+        </div>
+            <div id="workoutsGrid" class="workouts-grid hidden">
+                <!-- Las rutinas se cargarán aquí -->
             </div>
         </main>
 
@@ -81,5 +81,7 @@
                 .catch(err => console.error("❌ Error al registrar el Service Worker:", err));
         }
     </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script src="rutinas_casa.js"></script>
 </body>
 </html>
