@@ -10,9 +10,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="apple-touch-icon" href="images/icon-192x192.png">
     <meta name="theme-color" content="#f0f0f0">
-</head>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css' rel='stylesheet' />
 <body>
     <div class="container">
         <header class="main-header">
@@ -36,48 +38,49 @@
 
         <div class="main-area">
             <main class="main-content">
-                <section id="gym-training" class="featured-section scrolling-section">
-                <h2>Entrenamientos Programados (En Gimnasio)</h2>
-                <div class="restaurant-list horizontal-scroll">
-                <a href="./entrenamientos_gimnasio.html" class="card">
-                <h3>Ver Entrenamientos de Gimnasio</h3>
-                <p>Explora rutinas diseñadas para gimnasio</p>
+    <section id="gym-training" class="featured-section scrolling-section">
+        <h2>Entrenamientos Programados (En Gimnasio)</h2>
+        <div class="restaurant-list horizontal-scroll">
+            <a href="./entrenamientos_gimnasio.html" class="card">
+                <i class="fas fa-dumbbell fa-2x"></i>
+                <h3>Explora rutinas diseñadas para gimnasio</h3>
             </a>
         </div>
     </section>
-                <section id="home-training" class="featured-section scrolling-section">
-                <h2>Entrenamientos Programados (En Casa)</h2>
-                <div class="restaurant-list horizontal-scroll">
-                <a href="./entrenamientos_casa.html" class="card">
-                <h3>Ver Entrenamientos en Casa</h3>
-                <p>Explora rutinas para hacer en casa</p>
+
+    <section id="home-training" class="featured-section scrolling-section">
+        <h2>Entrenamientos Programados (En Casa)</h2>
+        <div class="restaurant-list horizontal-scroll">
+            <a href="./entrenamientos_casa.html" class="card">
+                <i class="fas fa-home fa-2x"></i>
+                <h3>Explora rutinas para hacer en casa</h3>
             </a>
         </div>
-                <section id="create-routine" class="featured-section scrolling-section">
+    </section>
+
+    <section id="create-routine" class="featured-section scrolling-section">
         <h2>Crear Rutina</h2>
         <div class="restaurant-list horizontal-scroll">
             <a href="./crear_rutina.html" class="card">
-                <h3>Crear tu Propia Rutina</h3>
-                <p>Diseña un entrenamiento personalizado</p>
+                <i class="fas fa-plus-circle fa-2x"></i>
+                <h3>Diseña un entrenamiento personalizado</h3>
             </a>
         </div>
     </section>
-            </main>
+</main>
 
-            <aside class="sidebar">
-                <section id="mapSection" class="map-section">
-                    <h2>Calendario</h2>
-                    <div class="map-container">
-                        <p>Mapa de restaurantes cercanos (placeholder)</p>
-                    </div>
-                </section>
-
-                
-                <section id="mapSection" class="map-section">
-                    <h2>Rutina de hoy</h2>
-                </section>
-            </aside>
-        </div>
+        <aside class="sidebar">
+            <section id="calendarSection" class="calendar-section">
+    <h2>Calendario</h2>
+    <div id="calendar"></div>
+</section>
+        
+    
+        <section id="routineSection" class="map-section">
+            <h2>Rutina de hoy</h2>
+        </section>
+        </aside>
+    </div>
 
 <footer class="main-footer">
     <div class="footer-content">
@@ -101,5 +104,7 @@
       .catch(err => console.error("❌ Error al registrar el Service Worker:", err));
   }
 </script>
+<script src="calendario.js"></script>
+
 </body>
 </html>

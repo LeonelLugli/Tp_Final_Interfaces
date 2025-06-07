@@ -1705,8 +1705,10 @@ h2 {
 .training-content h1 {
     text-align: center;
     margin-bottom: 2rem;
+    font-size: 2.5rem; /* Aumentar el tamaño para que coincida con las otras páginas */
+    font-weight: 600;
     color: var(--color-text);
-    font-size: 2rem;
+    padding: 1rem 0;
 }
 
 
@@ -1739,3 +1741,178 @@ h2 {
 }
 
 
+/* Estilos para el layout de columnas */
+.main-area {
+    display: grid;
+    grid-template-columns: 1fr 300px; /* Columna principal y sidebar */
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.sidebar {
+    flex-basis: 300px;
+    background-color: var(--color-card);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+/* Media queries para el layout */
+@media (max-width: 1024px) {
+    .main-area {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Estilos para las cards/secciones */
+.featured-section {
+    background: var(--color-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.featured-section h2 {
+    color: var(--color-text);
+    margin-bottom: 1rem;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--color-background);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card i {
+    color: var(--color-primary);
+}
+/* Estilos específicos del calendario */
+.calendar-section {
+    background: var(--color-card);
+    border-radius: 12px;
+    width: 100%;
+    height: auto;
+    padding-top: 1rem;
+}
+
+#calendar {
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.month-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    background: white;
+    border-radius: 4px;
+    min-width: 120px;
+    text-align: center;
+    border: 1px solid var(--color-border);
+    box-sizing: border-box;
+    padding: 0.5rem;
+}
+
+.calendar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.calendar-nav button {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    min-width: 40px;
+    text-align: center;
+}
+
+.today-button {
+    margin: 0.5rem 0 1rem 0;
+}
+.nav-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px; /* Ancho fijo para mantener el espacio consistente */
+    margin: 0 auto;
+}
+
+/* Eliminar estilos que ya no necesitamos */
+.calendar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 250px; /* Ancho fijo para mantener el espacio consistente */
+    margin: 0 auto;
+}
+
+.calendar-nav button {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    width: 40px;
+    text-align: center;
+}
+
+.month-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+    min-width: 150px; /* Ancho fijo para el título */
+}
+
+.today-button {
+    margin: 0.5rem 0 1rem 0;
+    width: auto !important; /* Sobreescribir el ancho fijo de los botones */
+}
+
+/* Eliminar estilos que ya no necesitamos */
+.calendar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}

@@ -10,6 +10,7 @@ function filterRoutines() {
     const grid = document.getElementById('workoutsGrid');
     const message = document.getElementById('routineMessage');
 
+    grid.innerHTML = '';
     console.log('Filtering:', frequency, difficulty); // Para debug
 
     if (!frequency || !difficulty) {
