@@ -1873,6 +1873,77 @@ h2 {
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
+}.workout-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1000px;
+    box-shadow: var(--shadow-sm);
+}
+
+.workout-card h3 {
+    color: var(--color-primary);
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.routine-info {
+    background: #f0f7ff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.workout-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.day-tab {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+.day-tab h4 {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+    padding: 1rem;
+    margin: 0;
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.exercise-list {
+    list-style: none;
+    padding: 1rem;
+    margin: 0;
+}
+
+.exercise-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e3f2fd;
+    color: var(--color-text);
+}
+
+.exercise-list li:last-child {
+    border-bottom: none;
+}
+
+.btn-comenzar {
+    display: block;
+    margin: 2rem auto 0;
+    padding: 1rem 2rem;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 
@@ -1917,211 +1988,3 @@ h2 {
     margin-bottom: 1rem;
 }
 
-/* estilos rutinas en casa */
-.workouts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 1rem 0;
-}
-
-.card {
-    background: var(--color-card);
-    border-radius: 8px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    text-decoration: none;
-    color: var(--color-text);
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-}
-
-.card i {
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-}
-
-.card h3 {
-    margin: 0.5rem 0;
-    color: var(--color-text);
-}
-
-.workout-description {
-    color: var(--color-text-light);
-    margin: 0;
-    line-height: 1.5;
-}
-.routine {
-    background: white;
-    border-radius: 8px;
-    padding: 2rem;
-    margin-top: 2rem;
-}
-
-.routine h2 {
-    color: var(--color-primary);
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-}
-
-.routine-info {
-    background: var(--color-light);
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.workout-days {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.day h3 {
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
-
-.day ul {
-    list-style: none;
-    padding: 0;
-}
-
-.day li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.day li:last-child {
-    border-bottom: none;
-}
-
-.workout-card {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 1000px;
-    box-shadow: var(--shadow-sm);
-}
-
-.workout-card h3 {
-    color: #00b4d8;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-.routine-info {
-    background: #f0f7ff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    text-align: center;
-    margin: 1.5rem 0;
-}
-
-.workout-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.day-tab {
-    background: white;
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-}
-
-.day-tab h4 {
-    color: #00b4d8;
-    font-size: 1.2rem;
-    padding: 1rem;
-    margin: 0;
-    border-bottom: 1px solid #e3f2fd;
-}
-
-.exercise-list {
-    list-style: none;
-    padding: 1rem;
-    margin: 0;
-}
-
-.exercise-list li {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #e3f2fd;
-    color: var(--color-text);
-}
-
-.exercise-list li:last-child {
-    border-bottom: none;
-}
-.workout-card {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 1000px;
-    box-shadow: var(--shadow-sm);
-}
-
-.workout-card h3 {
-    color: #00b4d8;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-.routine-info {
-    background: #f0f7ff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    text-align: center;
-    margin: 1.5rem 0;
-}
-
-.workout-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.day-tab {
-    background: white;
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-}
-
-.day-tab h4 {
-    color: #00b4d8;
-    font-size: 1.2rem;
-    padding: 1rem;
-    margin: 0;
-    border-bottom: 1px solid #e3f2fd;
-}
-
-.exercise-list {
-    list-style: none;
-    padding: 1rem;
-    margin: 0;
-}
-
-.exercise-list li {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #e3f2fd;
-    color: var(--color-text);
-}
-
-.exercise-list li:last-child {
-    border-bottom: none;
-}

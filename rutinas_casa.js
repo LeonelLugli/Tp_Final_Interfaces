@@ -17,7 +17,7 @@ function filterRoutines() {
         return;
     }
 
-    const routine = rutinas[difficulty]?.[frequency];
+    const routine = routines[difficulty]?.[frequency];
 
     if (!routine) {
         message.textContent = 'No hay rutinas disponibles para esta combinación';
@@ -31,16 +31,16 @@ function filterRoutines() {
     message.classList.add('hidden');
 }
 
-const rutinas = {
-    principiante: {
-        3: {
-            titulo: "Full Body - Principiante",
-            frecuencia: "3 veces por semana",
-            descanso: "1 día entre sesiones",
-            dias: [
+const routines = {
+    'principiante': {
+        '3': {
+            title: "Full Body - Principiante",
+            frequency: "3 veces por semana",
+            rest: "1 día entre sesiones",
+            days: [
                 {
-                    nombre: "Día 1 - Enfoque Pecho/Pierna",
-                    ejercicios: [
+                    name: "Día 1 - Enfoque Pecho/Pierna",
+                    exercises: [
                         "Flexiones de pecho (3×15)",
                         "Sentadillas sin peso (3×15)",
                         "Mountain climbers (3×15)",
@@ -50,8 +50,8 @@ const rutinas = {
                     ]
                 },
                 {
-                    nombre: "Día 2 - Enfoque Espalda/Core",
-                    ejercicios: [
+                    name: "Día 2 - Enfoque Espalda/Core",
+                    exercises: [
                         "Superman hold (3×30s)",
                         "Puente de glúteos (3×15)",
                         "Bird dog (3×15 por lado)",
@@ -61,8 +61,8 @@ const rutinas = {
                     ]
                 },
                 {
-                    nombre: "Día 3 - Enfoque Full Body",
-                    ejercicios: [
+                    name: "Día 3 - Enfoque Full Body",
+                    exercises: [
                         "Burpees sin salto (3x10)",
                         "Flexiones inclinadas (3x15)",
                         "Sentadillas sumo (3x15)",
@@ -73,19 +73,19 @@ const rutinas = {
                 }
             ]
         },
-        4: {
+        '4': {
             // Agregar rutina de 4 días principiante
         }
     },
-    avanzado: {
-        3: {
-            titulo: "HIIT Intenso",
-            frecuencia: "3 veces por semana",
-            descanso: "1 día entre sesiones",
-            dias: [
+    'avanzado': {
+        '3': {
+            title: "HIIT Intenso",
+            frequency: "3 veces por semana",
+            rest: "1 día entre sesiones",
+            days: [
                 {
                     nombre: "Día 1 - HIIT Superior",
-                    ejercicios: [
+                    exercises: [
                         "Burpees (4×15)",
                         "Diamond push ups (3×15)",
                         "Pike push ups (3×12)",
@@ -97,32 +97,34 @@ const rutinas = {
                 // Agregar más días
             ]
         },
-        4: {
+        '4': {
             // Agregar rutina de 4 días avanzado
         }
     }
 };
 
+
 function createRoutineCard(routine) {
     return `
         <div class="workout-card">
-            <h3>${routine.titulo}</h3>
+            <h3>${routine.title}</h3>
             <div class="routine-info">
-                <p>Frecuencia: ${routine.frecuencia}</p>
-                <p>Descanso: ${routine.descanso}</p>
+                <p>Frequency: ${routine.frequency}</p>
+                <p>Rest: ${routine.rest}</p>
             </div>
             <div class="workout-columns">
-                ${routine.dias.map(day => `
+                ${routine.days.map(day => `
                     <div class="day-tab">
-                        <h4>${day.nombre}</h4>
+                        <h4>${day.name}</h4>
                         <ul class="exercise-list">
-                            ${day.ejercicios.map(exercise => `
+                            ${day.exercises.map(exercise => `
                                 <li>${exercise}</li>
                             `).join('')}
                         </ul>
                     </div>
                 `).join('')}
             </div>
+            <button class="btn-primary">Start Routine</button>
         </div>
     `;
 }
@@ -133,17 +135,13 @@ function getLayoutType(routine) {
     return 'three-columns'; // Default for Full Body
 }
 
-function createWorkoutDays(days) {
-    return days.map(day => `
-        <div class="day-tab">
-            <h4>${day.nombre}</h4>
-            <ul class="exercise-list">
-                ${day.ejercicios.map(exercise => `
-                    <li>${exercise}</li>
-                `).join('')}
-            </ul>
-        </div>
-    `).join('');
+function createWorkoutDays(days, layout) {
+    if (layout === 'two-columns') {
+        return createTwoColumnsLayout(days);
+    } else if (layout === 'ppl-grid') {
+        return createPPLLayout(days);
+    }
+    return createThreeColumnsLayout(days);
 }
 
 function createTwoColumnsLayout(days) {
@@ -197,9 +195,9 @@ function createThreeColumnsLayout(days) {
 function createDayCards(days) {
     return days.map(day => `
         <div class="day-tab">
-            <h4>${day.nombre}</h4>
+            <h4>${day.name}</h4>
             <ul class="exercise-list">
-                ${day.ejercicios.map(exercise => `
+                ${day.exercises.map(exercise => `
                     <li>${exercise}</li>
                 `).join('')}
             </ul>
