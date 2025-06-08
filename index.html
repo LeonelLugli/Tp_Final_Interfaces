@@ -15,6 +15,8 @@
     <meta name="theme-color" content="#f0f0f0">
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css' rel='stylesheet' />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <body>
     <div class="container">
         <header class="main-header">
@@ -29,9 +31,9 @@
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="./registro_medidas.html">Body</a></li>
-                    <li><a href="./calculadora_mr.html">Calculadora de Mr</a></li>
-                    <li><a href="./calculadora_rm.html">Calculadora de Rm</a></li>
+                    <li><a href="registro_medidas.html"><i class="fas fa-weight"></i> Body</a></li>
+                    <li><a href="calculadora_mr.html"><i class="fas fa-calculator"></i> Calculadora de Mr</a></li>
+                    <li><a href="calculadora_rm.html"><i class="fas fa-calculator"></i> Calculadora de Rm</a></li>
                 </ul>
             </nav>
         </header>
@@ -104,7 +106,7 @@
       .catch(err => console.error("❌ Error al registrar el Service Worker:", err));
   }
 </script>
-<script src="calendario.js"></script>
+<script src="src/js/calendario.js"></script>
 
 </body>
 </html>

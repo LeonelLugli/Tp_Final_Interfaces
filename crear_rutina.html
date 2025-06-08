@@ -6,82 +6,107 @@
     <title>Crear Rutina - Fitness App</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="src/css/normalize.css">
+    <link rel="stylesheet" href="src/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header class="main-header">
             <div class="header-top">
+                <div class="user-actions">
+                    <a href="#">Registrarse</a>
+                    <a href="#">Iniciar Sesión</a>
+                </div>
                 <h1 class="logo">
                     <a href="index.html">Fitness</a>
                 </h1>
-                <div class="user-actions">
-                    <a href="#" class="btn-login">Iniciar Sesión</a>
-                    <a href="#" class="btn-register">Registrarse</a>
-                </div>
             </div>
             <nav class="main-nav">
-                <ul>
-                    <li><a href="registro_medidas.html">Body</a></li>
-                    <li><a href="calculadora_mr.html">Calculadora de Mr</a></li>
-                    <li><a href="calculadora_rm.html">Calculadora de Rm</a></li>
-                    <li><a href="entrenamientos_gimnasio.html">Entrenamientos Gimnasio</a></li>
-                    <li><a href="entrenamientos_casa.html">Entrenamientos Casa</a></li>
-                    <li><a href="crear_rutina.html">Crear Rutina</a></li>
-                </ul>
-            </nav>
+    <ul>
+        <li><a href="registro_medidas.html"><i class="fas fa-tape"></i> Body</a></li>
+        <li><a href="calculadora_mr.html"><i class="fas fa-calculator"></i> Calculadora de Mr</a></li>
+        <li><a href="calculadora_rm.html"><i class="fas fa-calculator"></i> Calculadora de Rm</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fas fa-dumbbell"></i> Rutinas <i class="fas fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="entrenamientos_gimnasio.html"><i class="fas fa-dumbbell"></i> Gimnasio</a></li>
+                <li><a href="entrenamientos_casa.html"><i class="fas fa-house-user"></i> Casa</a></li>
+                <li><a href="crear_rutina.html"><i class="fas fa-plus-circle"></i> Crear Rutina</a></li>
+                <li><a href="mis_rutinas.html"><i class="fas fa-list"></i> Mis Rutinas</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
         </header>
-
-        <main class="routine-creator">
-            <h1>Crear Rutina Personalizada</h1>
-            
-            <form id="routineForm" class="routine-form">
-                <div class="form-group">
-                    <label for="routineName">Nombre de la rutina:</label>
-                    <input type="text" id="routineName" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="routineType">Tipo de rutina:</label>
-                    <select id="routineType" required>
-                        <option value="">Seleccione tipo</option>
-                        <option value="gimnasio">Gimnasio</option>
-                        <option value="casa">Casa</option>
+        <main class="main-content">
+            <div class="create-routine-container">
+                <h2>Crear Rutina Personalizada</h2>
+                
+                <div class="routine-settings">
+                    <input type="text" id="routineTitle" placeholder="Nombre de la rutina" class="form-input">
+                    <select id="routineFrequency" class="form-select">
+                        <option value="">Selecciona frecuencia</option>
+                        <option value="3">3 veces por semana</option>
+                        <option value="4">4 veces por semana</option>
+                        <option value="5">5 veces por semana</option>
+                        <option value="6">6 veces por semana</option>
                     </select>
+                    <select id="routineRest" class="form-select">
+                    <option value="">Días de descanso</option>
+    </select>
                 </div>
 
-                <div id="exercisesList" class="exercises-list">
-                    <!-- Aquí se agregarán los ejercicios -->
+                <div class="exercise-form">
+    <div class="form-row">
+        <select id="daySelect" class="form-select">
+            <option value="">Selecciona el día</option>
+        </select>
+        <select id="muscleGroup" class="form-select">
+            <option value="">Grupo muscular</option>
+            <option value="pecho">Pecho</option>
+            <option value="espalda">Espalda</option>
+            <option value="piernas">Piernas</option>
+            <option value="hombros">Hombros</option>
+            <option value="biceps">Bíceps</option>
+            <option value="triceps">Tríceps</option>
+            <option value="core">Core</option>
+        </select>
+        <input type="text" id="exerciseName" placeholder="Nombre del ejercicio" class="form-input">
+    </div>
+    <div class="form-row">
+        <input type="number" id="exerciseSets" placeholder="Series" class="form-input" min="1">
+        <input type="number" id="exerciseReps" placeholder="Repeticiones" class="form-input" min="1">
+        <button id="addExercise" class="btn-primary">Agregar Ejercicio</button>
+    </div>
+</div>
+
+                <div id="daysContainer" class="days-container">
+                    <!-- Los días se mostrarán aquí -->
                 </div>
 
-                <button type="button" id="addExercise" class="btn-secondary">
-                    Agregar Ejercicio
-                </button>
-
-                <button type="submit" class="btn-primary">
-                    Guardar Rutina
-                </button>
-            </form>
+                <button id="createRoutine" class="btn-primary">Crear Rutina</button>
+            </div>
         </main>
-
         <footer class="main-footer">
             <div class="footer-content">
                 <ul class="footer-links">
-                    <li><a href="#">Acerca de</a></li>
-                    <li><a href="#">Contacto</a></li>
-                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="about.html">Acerca de</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                    <li><a href="privacy.html">Privacidad</a></li>
+                    <li><a href="terms.html">Términos</a></li>
                 </ul>
-                <div class="footer-copyright">
-                    <p>&copy; 2025 Fitness App. Todos los derechos reservados.</p>
-                </div>
+                <p class="copyright">&copy; 2023 Fitness App. Todos los derechos reservados.</p>
             </div>
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="src/js/crear_rutinas.js"></script>
+    <script src="src/js/nav.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')

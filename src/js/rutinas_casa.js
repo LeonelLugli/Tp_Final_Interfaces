@@ -74,7 +74,55 @@ const routines = {
             ]
         },
         '4': {
-            // Agregar rutina de 4 días principiante
+        title: "Upper/Lower Split - Principiante",
+        frequency: "4 veces por semana",
+        rest: "Alternar días",
+        days: [
+            {
+                name: "Día 1 - Upper Body",
+                exercises: [
+                    "Flexiones de pecho (3×12)",
+                    "Fondos en silla (3×10)",
+                    "Pike push-ups (3×8)",
+                    "Plancha con toque de hombros (3×12)",
+                    "Superman hold (3×30s)",
+                    "Flexiones inclinadas (3×15)"
+                ]
+            },
+            {
+                name: "Día 2 - Lower Body",
+                exercises: [
+                    "Sentadillas (4×15)",
+                    "Zancadas alternadas (3×12)",
+                    "Puente de glúteos (3×20)",
+                    "Step-ups en silla (3×15)",
+                    "Elevación de pantorrillas (3×25)",
+                    "Plancha lateral (3×30s)"
+                ]
+            },
+            {
+                name: "Día 3 - Upper Body",
+                exercises: [
+                    "Flexiones diamante (3×10)",
+                    "Dips en silla (3×12)",
+                    "Push-ups con rotación (2×8)",
+                    "Plancha up-down (3×10)",
+                    "Flexiones declinadas (3×12)",
+                    "Dead bug (3×15)"
+                ]
+            },
+            {
+                name: "Día 4 - Lower Body",
+                exercises: [
+                    "Sentadillas búlgaras (3×12)",
+                    "Hip thrusts (3×20)",
+                    "Mountain climbers (3×20)",
+                    "Sentadillas sumo (3×15)",
+                    "Jumping squats (3×12)",
+                    "Wall sit (3×45s)"
+                ]
+            }
+        ]
         }
     },
     'avanzado': {
@@ -84,23 +132,92 @@ const routines = {
             rest: "1 día entre sesiones",
             days: [
                 {
-                    nombre: "Día 1 - HIIT Superior",
+                    name: "Día 1 - HIIT Superior",
                     exercises: [
                         "Burpees (4×15)",
-                        "Diamond push ups (3×15)",
-                        "Pike push ups (3×12)",
+                        "Diamond push-ups (3×15)",
+                        "Pike push-ups (3×12)",
                         "Dips en silla (3×15)",
                         "Plancha con shoulder taps (3×20)",
                         "V-ups (4×15)"
                     ]
                 },
-                // Agregar más días
+                {
+                    name: "Día 2 - HIIT Inferior",
+                    exercises: [
+                        "Jump squats (4×15)",
+                        "Pistol squats asistidos (3×8)",
+                        "Jumping lunges (4×12)",
+                        "Burpees sin push-up (4×15)",
+                        "Mountain climbers (4×25)",
+                        "Flutter kicks (4×30s)"
+                    ]
+                },
+                {
+                    name: "Día 3 - HIIT Total",
+                    exercises: [
+                        "Muscle-ups negativos (3×8)",
+                        "Handstand push-ups contra pared (3×8)",
+                        "Explosive push-ups (3×12)",
+                        "Tuck planche holds (4×15s)",
+                        "L-sit holds (3×20s)",
+                        "Dragon flags (3×8)"
+                    ]
+                }
             ]
         },
         '4': {
-            // Agregar rutina de 4 días avanzado
-        }
+        title: "Calistenia Avanzada",
+        frequency: "4 veces por semana",
+        rest: "Descansar día por medio",
+        days: [
+            {
+                name: "Día 1 - Push",
+                exercises: [
+                    "Flexiones explosivas (4×12)",
+                    "Pike push-ups (4×12)",
+                    "Pseudo planche push-ups (3×10)",
+                    "Flexiones archer (4×8 por lado)",
+                    "Fondos en silla explosivos (3×12)",
+                    "Handstand hold (3×30s)"
+                ]
+            },
+            {
+                name: "Día 2 - Core/Cardio",
+                exercises: [
+                    "Burpees (4×15)",
+                    "Dragon flags progresión (4×8)",
+                    "L-sit hold (4×15s)",
+                    "Hollow body rocks (3×20)",
+                    "V-sits (4×12)",
+                    "Mountain climbers (4×30)"
+                ]
+            },
+            {
+                name: "Día 3 - Legs",
+                exercises: [
+                    "Pistol squats progresión (4×8)",
+                    "Jumping lunges (4×12)",
+                    "Sissy squats (3×12)",
+                    "Box jumps (4×10)",
+                    "Sprints en lugar (4×30s)",
+                    "Wall sit con elevación (3×45s)"
+                ]
+            },
+            {
+                name: "Día 4 - Skills",
+                exercises: [
+                    "Handstand push-ups progresión (4×8)",
+                    "Planche lean holds (4×20s)",
+                    "Pseudo planche holds (4×15s)",
+                    "Wall walks (3×5)",
+                    "Pike push-ups profundas (3×12)",
+                    "Crow pose holds (3×30s)"
+                ]
+            }
+        ]
     }
+}
 };
 
 
