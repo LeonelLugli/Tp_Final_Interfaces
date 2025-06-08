@@ -2257,3 +2257,414 @@ h2 {
         display: block;
     }
 }
+/* Mostrar menú en hover solo en desktop */
+@media (min-width: 769px) {
+    .main-nav .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+}
+
+/* Estilos unificados para todos los botones de navegación */
+.main-nav ul li a,
+.main-nav .dropdown > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 1em;
+    background: transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: auto;
+    margin: 0;
+    height: auto; /* Cambio de 100% a auto */
+    min-height: auto; /* Cambio de 40px a auto */
+}
+
+.main-nav ul li a:hover,
+.main-nav .dropdown > a:hover {
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
+}
+
+/* Estilos del menú dropdown */
+.main-nav .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 200px;
+    box-shadow: var(--shadow-sm);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.main-nav .dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.main-nav .dropdown-menu a:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+}
+
+.main-nav .dropdown-menu a:last-child {
+    border-bottom: none;
+}
+/* Mostrar menú en hover solo en desktop */
+@media (min-width: 769px) {
+    .main-nav .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+}
+
+/* Arreglo específico para móviles - mantener el estilo original */
+@media (max-width: 768px) {
+    .main-nav ul li a,
+    .main-nav .dropdown > a {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.75rem;
+        background: var(--color-card);
+        border-radius: 8px;
+        margin: 0 auto;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .main-nav .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .main-nav .dropdown-menu a {
+        background: var(--color-background);
+        margin: 0.25rem 0;
+        width: 100%;
+    }
+
+    /* Solo mostrar menú cuando tiene la clase .show */
+    .main-nav .dropdown-menu.show {
+        display: block;
+    }
+}
+/* Estilos específicos para Mis Rutinas */
+/* Estilos específicos para Mis Rutinas */
+.my-routines-container {
+    background: var(--color-card);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.routines-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 250px;
+    margin-right: 1rem;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0,180,216,0.1);
+    outline: none;
+}
+
+.filter-options {
+    display: flex;
+    gap: 1rem;
+}
+
+.filter-options select {
+    padding: 0.75rem;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    min-width: 150px;
+    font-size: 1rem;
+    background: white;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-options select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0,180,216,0.1);
+    outline: none;
+}
+
+.filter-options select:hover {
+    border-color: var(--color-primary);
+}
+
+.routines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.routine-card {
+    background: var(--color-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.routine-card:hover {
+    transform: translateY(-2px);
+}
+
+.routine-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.routine-title {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.routine-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: var(--color-secondary);
+}
+
+.action-btn.favorite.active {
+    color: var(--color-accent);
+}
+
+.routine-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text);
+}
+
+.preview-days {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.day-badge {
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.routine-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.btn-view {
+    flex: 1;
+    padding: 0.75rem;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-edit {
+    padding: 0.75rem;
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-edit:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+/* Mensaje sin rutinas */
+.no-routines-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    width: 100%;
+}
+
+.no-routines-message i {
+    font-size: 4rem;
+    color: var(--color-border);
+    margin-bottom: 1.5rem;
+}
+
+.no-routines-message h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.no-routines-message p {
+    margin-bottom: 2rem;
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.btn-create-first {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--gradient-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-create-first:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+    color: white;
+}
+
+.routines-page .sidebar {
+    display: none;
+}
+
+.routines-page.has-routines .sidebar {
+    display: block;
+}
+
+/* En otras páginas, mostrar sidebar normalmente */
+body:not(.routines-page) .sidebar {
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .my-routines-container {
+        padding: 1rem;
+        margin: 0.5rem;
+        border-radius: 8px;
+    }
+    
+    .routines-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-box {
+        min-width: auto;
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .filter-options {
+        flex-direction: column;
+    }
+    
+    .filter-options select {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .routines-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .routine-buttons {
+        flex-direction: column;
+    }
+    
+    .no-routines-message {
+        padding: 2rem 1rem;
+        margin: 1rem auto;
+    }
+    
+    .no-routines-message i {
+        font-size: 3rem;
+    }
+    
+    .no-routines-message h3 {
+        font-size: 1.5rem;
+    }
+    
+    .no-routines-message p {
+        font-size: 1rem;
+    }
+    
+    .btn-create-first {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
