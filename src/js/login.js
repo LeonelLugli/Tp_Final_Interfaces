@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
 
-    // Toggle para mostrar/ocultar contraseña
+    // Toggle para mostrar/ocultar contraseña (tu código original, que funciona perfecto)
     togglePassword.addEventListener('click', function() {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
@@ -13,71 +13,69 @@ document.addEventListener('DOMContentLoaded', function() {
         icon.classList.toggle('fa-eye-slash');
     });
 
-    // Manejar envío del formulario
-    loginForm.addEventListener('submit', function(e) {
+    // Manejar envío del formulario con la lógica real hacia el backend
+    loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const remember = document.getElementById('remember').checked;
 
-        // Validación básica
         if (!email || !password) {
             showMessage('Por favor, completa todos los campos', 'error');
             return;
         }
 
-        // Simular autenticación
-        simulateLogin(email, password, remember);
-    });
-
-    function simulateLogin(email, password, remember) {
-        // Mostrar loading
         const submitBtn = document.querySelector('.btn-login');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Iniciando sesión...';
         submitBtn.disabled = true;
 
-        // Simular delay de red
-        setTimeout(() => {
-            // Aquí normalmente harías la petición al servidor
-            // Por ahora simulamos un login exitoso
-            
-            // Guardar sesión
-            if (remember) {
-                localStorage.setItem('userSession', JSON.stringify({
-                    email: email,
-                    loginTime: new Date().toISOString(),
-                    remember: true
-                }));
+        try {
+            // Usamos fetch para enviar los datos al backend real
+            const response = await fetch('http://localhost/Tp_Final_Interfaces/backend/api/usuarios/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, contrasena: password })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) { // Si la respuesta fue exitosa (código 200 OK)
+                showMessage(result.mensaje, 'success');
+
+                // Guardamos los datos REALES del usuario que nos devolvió el backend
+                const storage = remember ? localStorage : sessionStorage;
+                storage.setItem('userSession', JSON.stringify(result.usuario));
+
+                // Redirigimos al inicio después de un momento
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+
             } else {
-                sessionStorage.setItem('userSession', JSON.stringify({
-                    email: email,
-                    loginTime: new Date().toISOString(),
-                    remember: false
-                }));
+                // Si el servidor nos dio un error (401, 404), mostramos el mensaje de error
+                showMessage(result.mensaje, 'error');
             }
 
-            // Redireccionar al index
-            showMessage('¡Bienvenido! Redirigiendo...', 'success');
-            
+        } catch (error) {
+            console.error('Error de conexión:', error);
+            showMessage('No se pudo conectar con el servidor.', 'error');
+        } finally {
+            // Esto se ejecuta siempre para restaurar el botón
             setTimeout(() => {
-                window.location.href = 'index.html';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }, 1500);
+        }
+    });
 
-        }, 2000);
-    }
-
+    // Tu función para mostrar notificaciones (funciona perfecto)
     function showMessage(message, type) {
-        // Crear elemento de mensaje
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${type}`;
-        messageDiv.innerHTML = `
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-            ${message}
-        `;
+        messageDiv.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
 
-        // Agregar estilos al mensaje
         messageDiv.style.cssText = `
             position: fixed;
             top: 20px;
@@ -94,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.body.appendChild(messageDiv);
 
-        // Remover mensaje después de 3 segundos
         setTimeout(() => {
             messageDiv.style.animation = 'slideOut 0.3s ease';
             setTimeout(() => {
@@ -103,14 +100,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 
-    // Verificar si ya hay sesión activa
+    // Tu código para verificar si ya hay sesión activa (funciona perfecto)
     const userSession = localStorage.getItem('userSession') || sessionStorage.getItem('userSession');
     if (userSession) {
-        window.location.href = 'index.html';
+        // Para evitar bucles, solo redirige si no estamos ya en index.html
+        if (!window.location.pathname.endsWith('index.html')) {
+            window.location.href = 'index.html';
+        }
     }
 });
 
-// Agregar animaciones CSS
+// Tu código para agregar las animaciones CSS (funciona perfecto)
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {

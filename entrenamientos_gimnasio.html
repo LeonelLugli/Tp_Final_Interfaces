@@ -90,11 +90,12 @@
     <script src="script.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
+            navigator.serviceWorker.register('service-worker.js')
                 .then(reg => console.log("✅ Service Worker registrado:", reg.scope))
                 .catch(err => console.error("❌ Error al registrar el Service Worker:", err));
         }
     </script>
+<script src="src/js/auth.js"></script>
 </body>
 </html>
 

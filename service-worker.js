@@ -4,11 +4,11 @@ if (workbox) {
   console.log("✅ Workbox cargado correctamente");
 
   workbox.precaching.precacheAndRoute([
-     { url: '/index.html', revision: '1' },
-  { url: '/manifest.json', revision: '1' },
-  { url: '/src/css/style.css', revision: '1' },
-  { url: '/src/css/normalize.css', revision: '1' },
-   { url :  '/calculadora_mr.html' , revision: '1'},
+     { url: 'index.html', revision: '1' },
+  { url: 'manifest.json', revision: '1' },
+  { url: 'src/css/style.css', revision: '1' },
+  { url: 'src/css/normalize.css', revision: '1' },
+   { url :  'calculadora_mr.html' , revision: '1'},
   ]);
 
   workbox.routing.registerRoute(
