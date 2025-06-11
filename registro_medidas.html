@@ -26,27 +26,27 @@
                 </h1>
             </div>
             <nav class="main-nav">
-    <ul>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle">
-                <i class="fas fa-dumbbell"></i> Rutinas <i class="fas fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="entrenamientos_gimnasio.html"><i class="fas fa-dumbbell"></i> Gimnasio</a></li>
-                <li><a href="entrenamientos_casa.html"><i class="fas fa-house-user"></i> Casa</a></li>
-                <li><a href="crear_rutina.html"><i class="fas fa-plus-circle"></i> Crear Rutina</a></li>
-                <li><a href="mis_rutinas.html"><i class="fas fa-list"></i> Mis Rutinas</a></li>
-            </ul>
-        </li>
-        <li><a href="registro_medidas.html"><i class="fas fa-weight"></i> Body</a></li>
-        <li><a href="calculadora_mr.html"><i class="fas fa-calculator"></i> Calculadora de Mr</a></li>
-        <li><a href="calculadora_rm.html"><i class="fas fa-calculator"></i> Calculadora de Rm</a></li>
-        
-    </ul>
-</nav>
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fas fa-dumbbell"></i> Rutinas <i class="fas fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="entrenamientos_gimnasio.html"><i class="fas fa-dumbbell"></i> Gimnasio</a></li>
+                            <li><a href="entrenamientos_casa.html"><i class="fas fa-house-user"></i> Casa</a></li>
+                            <li><a href="crear_rutina.html"><i class="fas fa-plus-circle"></i> Crear Rutina</a></li>
+                            <li><a href="mis_rutinas.html"><i class="fas fa-list"></i> Mis Rutinas</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="registro_medidas.html"><i class="fas fa-weight"></i> Body</a></li>
+                    <li><a href="calculadora_mr.html"><i class="fas fa-calculator"></i> Calculadora de Mr</a></li>
+                    <li><a href="calculadora_rm.html"><i class="fas fa-calculator"></i> Calculadora de Rm</a></li>
+                </ul>
+            </nav>
         </header>
 
         <main class="main-content">
+            <!-- Sección de Medidas Corporales -->
             <div class="medidas-flex">
                 <div class="medidas-formulario">
                     <section class="body-measure-container">
@@ -111,90 +111,194 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Sección de Peso - Nueva sección agregada -->
+            <div class="peso-section">
+                <h3><i class="fas fa-weight"></i> Registro de Peso</h3>
+                
+                <!-- Formulario de entrada de peso -->
+                <div class="peso-input-group">
+                    <label for="peso-actual">Peso actual:</label>
+                    <input type="number" id="peso-actual" step="0.1" min="0" max="500" placeholder="0.0">
+                    <span>kg</span>
+                </div>
+                
+                <button class="btn-registro-peso" onclick="registrarPeso()">
+                    <i class="fas fa-save"></i> Registrar Peso
+                </button>
+                
+                <!-- Tabla de comparación de peso -->
+                <table class="peso-comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Peso Anterior</th>
+                            <th>Peso Actual</th>
+                            <th>Cambio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="peso-comparison-body">
+                        <!-- Los datos se llenarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
         </main>
 
-<footer class="main-footer">
-    <div class="footer-content">
-        <ul class="footer-links">
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Contacto</a></li>
-            <li><a href="#">Términos y condiciones</a></li>
-    </ul>
-        <div class="footer-copyright">
-            <p>&copy; 2025 Fitness App. Todos los derechos reservados.</p>
-        </div>
-    </div>
-</footer>
+        <footer class="main-footer">
+            <div class="footer-content">
+                <ul class="footer-links">
+                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Fitness App. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
 
-
-    //Pasar al archivo de js//
-    <script>
-        document.getElementById('medidasForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const campos = [
-                { id: 'pecho', label: 'Pecho' },
-                { id: 'brazo', label: 'Brazo izq.' },
-                { id: 'brazo_der', label: 'Brazo der.' },
-                { id: 'antebrazo', label: 'Antebrazo izq.' },
-                { id: 'antebrazo_der', label: 'Antebrazo der.' },
-                { id: 'cintura', label: 'Cintura' },
-                { id: 'pierna_izq', label: 'Pierna izq.' },
-                { id: 'pierna_der', label: 'Pierna der.' },
-                { id: 'gemelos', label: 'Gemelo der.' },
-                { id: 'gemelos_izq', label: 'Gemelo izq.' },
-                { id: 'cuello', label: 'Cuello' }
-            ];
-            // Guardar registro actual
-            const registroActual = {};
-            campos.forEach(campo => {
-                registroActual[campo.id] = document.getElementById(campo.id).value;
-            });
-            // Obtener último registro
-            const ultimoRegistro = JSON.parse(localStorage.getItem('ultimoRegistroMedidas'));
-            // Guardar nuevo registro
-            localStorage.setItem('ultimoRegistroMedidas', JSON.stringify(registroActual));
-            // Mostrar notificación
-            mostrarNotificacion('¡Registro guardado correctamente!');
-            // Mostrar comparación
-            mostrarComparacion(ultimoRegistro, registroActual, campos);
-           
-        });
-
-        function mostrarComparacion(ultimo, actual, campos) {
-            let html = '';
-            if (!ultimo) {
-                html = '<p>Este es tu primer registro.</p>';
-            } else {
-                html = '<table style="width:100%;text-align:center;"><tr><th>Medida</th><th>Anterior</th><th>Actual</th><th>Cambio</th></tr>';
+        <!-- Scripts -->
+        <script>
+            // Script existente para medidas corporales
+            document.getElementById('medidasForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const campos = [
+                    { id: 'pecho', label: 'Pecho' },
+                    { id: 'brazo', label: 'Brazo izq.' },
+                    { id: 'brazo_der', label: 'Brazo der.' },
+                    { id: 'antebrazo', label: 'Antebrazo izq.' },
+                    { id: 'antebrazo_der', label: 'Antebrazo der.' },
+                    { id: 'cintura', label: 'Cintura' },
+                    { id: 'pierna_izq', label: 'Pierna izq.' },
+                    { id: 'pierna_der', label: 'Pierna der.' },
+                    { id: 'gemelos', label: 'Gemelo der.' },
+                    { id: 'gemelos_izq', label: 'Gemelo izq.' },
+                    { id: 'cuello', label: 'Cuello' }
+                ];
+                // Guardar registro actual
+                const registroActual = {};
                 campos.forEach(campo => {
-                    const prev = ultimo[campo.id] || '-';
-                    const curr = actual[campo.id] || '-';
-                    let cambio = '-';
-                    if (prev !== '-' && curr !== '-') {
-                        const diff = (parseFloat(curr) - parseFloat(prev)).toFixed(1);
-                        cambio = (diff > 0 ? '+' : '') + diff + ' cm';
-                    }
-                    html += `<tr>
-                        <td>${campo.label}</td>
-                        <td>${prev} cm</td>
-                        <td>${curr} cm</td>
-                        <td>${cambio}</td>
-                    </tr>`;
+                    registroActual[campo.id] = document.getElementById(campo.id).value;
                 });
-                html += '</table>';
-            }
-            document.getElementById('comparacionContenido').innerHTML = html;
-        }
+                // Obtener último registro
+                const ultimoRegistro = JSON.parse(localStorage.getItem('ultimoRegistroMedidas'));
+                // Guardar nuevo registro
+                localStorage.setItem('ultimoRegistroMedidas', JSON.stringify(registroActual));
+                // Mostrar notificación
+                mostrarNotificacion('¡Registro guardado correctamente!');
+                // Mostrar comparación
+                mostrarComparacion(ultimoRegistro, registroActual, campos);
+            });
 
-// Notificación flotante
-        function mostrarNotificacion(msg) {
-            let notif = document.createElement('div');
-            notif.className = 'notificacion-exito';
-            notif.innerText = msg;
-            document.body.appendChild(notif);
-            setTimeout(() => notif.remove(), 2500);
-        }
-    </script>
-      <script src="src/js/auth.js"></script>
+            function mostrarComparacion(ultimo, actual, campos) {
+                let html = '';
+                if (!ultimo) {
+                    html = '<p>Este es tu primer registro.</p>';
+                } else {
+                    html = '<table style="width:100%;text-align:center;"><tr><th>Medida</th><th>Anterior</th><th>Actual</th><th>Cambio</th></tr>';
+                    campos.forEach(campo => {
+                        const prev = ultimo[campo.id] || '-';
+                        const curr = actual[campo.id] || '-';
+                        let cambio = '-';
+                        if (prev !== '-' && curr !== '-') {
+                            const diff = (parseFloat(curr) - parseFloat(prev)).toFixed(1);
+                            cambio = (diff > 0 ? '+' : '') + diff + ' cm';
+                        }
+                        html += `<tr>
+                            <td>${campo.label}</td>
+                            <td>${prev} cm</td>
+                            <td>${curr} cm</td>
+                            <td>${cambio}</td>
+                        </tr>`;
+                    });
+                    html += '</table>';
+                }
+                document.getElementById('comparacionContenido').innerHTML = html;
+            }
+
+            // Notificación flotante
+            function mostrarNotificacion(msg) {
+                let notif = document.createElement('div');
+                notif.className = 'notificacion-exito';
+                notif.innerText = msg;
+                document.body.appendChild(notif);
+                setTimeout(() => notif.remove(), 2500);
+            }
+
+            // Nuevo script para el registro de peso
+            function registrarPeso() {
+                const pesoInput = document.getElementById('peso-actual');
+                const peso = parseFloat(pesoInput.value);
+                
+                if (!peso || peso <= 0) {
+                    alert('Por favor ingresa un peso válido');
+                    return;
+                }
+                
+                // Obtener registros de peso existentes
+                const registrosPeso = JSON.parse(localStorage.getItem('registrosPeso')) || [];
+                
+                // Obtener el último peso para calcular el cambio
+                const ultimoPeso = registrosPeso.length > 0 ? registrosPeso[registrosPeso.length - 1].peso : peso;
+                
+                // Crear nuevo registro
+                const nuevoRegistro = {
+                    fecha: new Date().toLocaleDateString('es-ES'),
+                    peso: peso,
+                    pesoAnterior: ultimoPeso
+                };
+                
+                // Agregar al array y guardar
+                registrosPeso.push(nuevoRegistro);
+                localStorage.setItem('registrosPeso', JSON.stringify(registrosPeso));
+                
+                // Actualizar la tabla
+                actualizarTablaPeso();
+                
+                // Limpiar el input
+                pesoInput.value = '';
+                
+                // Mostrar mensaje de éxito
+                mostrarNotificacion('Peso registrado exitosamente');
+            }
+
+            function actualizarTablaPeso() {
+                const registrosPeso = JSON.parse(localStorage.getItem('registrosPeso')) || [];
+                const tbody = document.getElementById('peso-comparison-body');
+                
+                tbody.innerHTML = '';
+                
+                // Mostrar los últimos 5 registros (más recientes primero)
+                const ultimosRegistros = registrosPeso.slice(-5).reverse();
+                
+                ultimosRegistros.forEach((registro, index) => {
+                    const cambio = registro.peso - registro.pesoAnterior;
+                    const cambioClase = cambio > 0 ? 'positive' : cambio < 0 ? 'negative' : 'neutral';
+                    const cambioTexto = cambio === 0 ? '0.0' : (cambio > 0 ? `+${cambio.toFixed(1)}` : cambio.toFixed(1));
+                    
+                    const fila = `
+                        <tr>
+                            <td>${registro.fecha}</td>
+                            <td>${registro.pesoAnterior.toFixed(1)} kg</td>
+                            <td>${registro.peso.toFixed(1)} kg</td>
+                            <td class="peso-change ${cambioClase}">${cambioTexto} kg</td>
+                        </tr>
+                    `;
+                    
+                    tbody.insertAdjacentHTML('beforeend', fila);
+                });
+                
+                if (registrosPeso.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4">No hay registros de peso</td></tr>';
+                }
+            }
+
+            // Cargar datos al iniciar la página
+            document.addEventListener('DOMContentLoaded', function() {
+                actualizarTablaPeso();
+            });
+        </script>
+        <script src="src/js/auth.js"></script>
+    </div>
 </body>
 </html>
