@@ -75,15 +75,16 @@
 </main>
 
         <aside class="sidebar">
+            <section id="routineSection" class="map-section">
+            <h2>Rutina de hoy</h2>
+        </section>
             <section id="calendarSection" class="calendar-section">
     <h2>Calendario</h2>
     <div id="calendar"></div>
 </section>
         
     
-        <section id="routineSection" class="map-section">
-            <h2>Rutina de hoy</h2>
-        </section>
+        
         </aside>
     </div>
 
@@ -107,7 +108,7 @@
       .catch(err => console.error("❌ Error al registrar el Service Worker:", err));
   }
 </script>
-<script src="src/js/calendario.js"></script>
+  <script src="src/js/calendario.js"></script>
   <script src="src/js/auth.js"></script>
 
 </body>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Rutina - Fitness App</title>
+    <link rel="stylesheet" href="src/css/normalize.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <div class="header-top">
+                <div class="user-actions">
+                    <a href="#">Registrarse</a>
+                    <a href="#">Iniciar Sesión</a>
+                </div>
+                <h1 class="logo">
+                    <a href="index.html">Fitness</a>
+                </h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="registro_medidas.html"><i class="fas fa-ruler"></i> Medidas</a></li>
+                    <li><a href="registro_peso.html"><i class="fas fa-weight"></i> Peso</a></li>
+                    <li><a href="calculadora_mr.html"><i class="fas fa-calculator"></i> Calculadora de Mr</a></li>
+                    <li><a href="calculadora_rm.html"><i class="fas fa-calculator"></i> Calculadora de Rm</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="rutina-detalle-container">
+                <div class="rutina-header-section">
+                    <button class="btn-volver" onclick="window.history.back()">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </button>
+                    <div id="rutina-info">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                </div>
+                
+                <div class="rutina-ejercicios" id="rutina-ejercicios">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <ul class="footer-links">
+                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Fitness App. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Obtener parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const rutinaId = urlParams.get('id');
+            const fecha = urlParams.get('fecha');
+
+            // Datos de ejemplo de rutinas
+            const rutinasData = {
+                'pecho-triceps': {
+                    nombre: 'Pecho y Tríceps',
+                    tipo: 'gimnasio',
+                    duracion: '60 minutos',
+                    ejercicios: [
+                        { nombre: 'Press de banca', series: 4, repeticiones: '8-10', descanso: '90s' },
+                        { nombre: 'Press inclinado con mancuernas', series: 3, repeticiones: '10-12', descanso: '60s' },
+                        { nombre: 'Aperturas con mancuernas', series: 3, repeticiones: '12-15', descanso: '60s' },
+                        { nombre: 'Extensiones de tríceps', series: 4, repeticiones: '10-12', descanso: '60s' },
+                        { nombre: 'Fondos en paralelas', series: 3, repeticiones: '8-12', descanso: '90s' }
+                    ]
+                },
+                'espalda-biceps': {
+                    nombre: 'Espalda y Bíceps',
+                    tipo: 'gimnasio',
+                    duracion: '65 minutos',
+                    ejercicios: [
+                        { nombre: 'Dominadas', series: 4, repeticiones: '6-10', descanso: '120s' },
+                        { nombre: 'Remo con barra', series: 4, repeticiones: '8-10', descanso: '90s' },
+                        { nombre: 'Jalones al pecho', series: 3, repeticiones: '10-12', descanso: '60s' },
+                        { nombre: 'Curl con barra', series: 4, repeticiones: '10-12', descanso: '60s' },
+                        { nombre: 'Curl martillo', series: 3, repeticiones: '12-15', descanso: '45s' }
+                    ]
+                }
+                // Agregar más rutinas según necesites
+            };
+
+            // Cargar datos de la rutina
+            function cargarRutina() {
+                const rutina = rutinasData[rutinaId];
+                
+                if (!rutina) {
+                    document.getElementById('rutina-info').innerHTML = `
+                        <div class="error-message">
+                            <h2>Rutina no encontrada</h2>
+                            <p>No se pudo cargar la rutina solicitada.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Mostrar información de la rutina
+                document.getElementById('rutina-info').innerHTML = `
+                    <div class="rutina-header-info">
+        <h1><i class="fas fa-${rutina.tipo === 'gimnasio' ? 'dumbbell' : 'home'}"></i> ${rutina.nombre}</h1>
+        <div class="rutina-meta">
+            <span class="rutina-fecha">
+                <i class="fas fa-calendar"></i> 
+                ${new Date(fecha).toLocaleDateString('es-ES')}
+            </span>
+            <span class="rutina-tipo ${rutina.tipo}">
+                <i class="fas fa-${rutina.tipo === 'gimnasio' ? 'dumbbell' : 'home'}"></i> 
+                ${rutina.tipo === 'gimnasio' ? 'Gimnasio' : 'En Casa'}
+            </span>
+        </div>
+    </div>
+`;
+
+                // Mostrar ejercicios
+                document.getElementById('rutina-ejercicios').innerHTML = `
+    <h2>Ejercicios</h2>
+    <div class="ejercicios-lista">
+        ${rutina.ejercicios.map((ejercicio, index) => `
+            <div class="ejercicio-card">
+                <div class="ejercicio-numero">${index + 1}</div>
+                <div class="ejercicio-info">
+                    <h3>${ejercicio.nombre}</h3>
+                    <div class="ejercicio-detalles">
+                        <span><i class="fas fa-list"></i> ${ejercicio.series} series</span>
+                        <span><i class="fas fa-redo"></i> ${ejercicio.repeticiones} reps</span>
+                    </div>
+                </div>
+                <div class="ejercicio-check">
+                    <input type="checkbox" id="ejercicio-${index}">
+                    <label for="ejercicio-${index}">Completado</label>
+                </div>
+            </div>
+        `).join('')}
+    </div>
+`;
+            }
+
+            // Cargar rutina al iniciar
+            document.addEventListener('DOMContentLoaded', cargarRutina);
+        </script>
+    </div>
+</body>
+</html>
