@@ -1,7 +1,7 @@
 <?php // Archivo: backend/api/medidas/guardar_medidas.php
 session_start();
 
-header("Access-Control-Allow-Origin: http://localhost");
+header("Access-Control-Allow-Origin: https://mi-proyecto.infinityfreeapp.com");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");

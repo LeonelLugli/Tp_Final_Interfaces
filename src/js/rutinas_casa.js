@@ -28,7 +28,7 @@ async function filterRoutines() {
     grid.classList.add('hidden');
 
     try {
-        const url = `http://localhost/Tp_Final_Interfaces/backend/api/rutinas/obtener_rutinas.php?tipo=casa&frecuencia=${frequency}&nivel=${difficulty}`;
+        const url = `https://myproyectTPinterfaces.infy.uk/backend/api/rutinas/obtener_rutinas.php?tipo=casa&frecuencia=${frequency}&nivel=${difficulty}`;
         const response = await fetch(url);
         const routinesData = await response.json();
 

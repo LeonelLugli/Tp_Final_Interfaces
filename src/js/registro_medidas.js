@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- FUNCIÓN CENTRAL PARA GUARDAR EN LA BASE DE DATOS ---
     async function guardarRegistro(datos) {
         try {
-            const url = 'http://localhost/Tp_Final_Interfaces/backend/api/medidas/guardar_medidas.php';
+            const url = 'https://myproyectTPinterfaces.infy.uk/backend/api/medidas/guardar_medidas.php';
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

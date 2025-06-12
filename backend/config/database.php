@@ -6,12 +6,11 @@ header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 class Database {
-    private $host = "localhost";
-    private $db_name = "fitness_pwa"; // El nombre que le diste a tu base de datos
-    private $username = "root";       // Tu usuario de MySQL (usualmente 'root')
-    private $password = "";          // Tu contraseña de MySQL (usualmente vacía en XAMPP)
+    private $host = "sql201.infinityfree.com"; 
+    private $db_name = "if0_39045582_fitness_pwa"; 
+    private $username = "if0_39045582"; 
+    private $password = "nCwqxkrDKA";   
     public $conn;
-
     public function getConnection() {
         $this->conn = null;
         try {

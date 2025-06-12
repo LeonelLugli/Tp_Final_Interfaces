@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // URL CORREGIDA Y COMPLETA
-            const url = 'http://localhost/Tp_Final_Interfaces/backend/api/rutinas/crear_rutina.php';
+            const url = 'https://myproyectTPinterfaces.infy.uk/backend/api/rutinas/crear_rutina.php';
             const response = await fetch(url, {
                 method: 'POST',
                 credentials: 'include', // Línea para enviar la cookie de sesión

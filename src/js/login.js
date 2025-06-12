@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Usamos fetch para enviar los datos al backend real
-            const response = await fetch('http://localhost/Tp_Final_Interfaces/backend/api/usuarios/login.php', {
+            const response = await fetch('https://myproyectTPinterfaces.infy.ukbackend/api/usuarios/login.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: email, contrasena: password })

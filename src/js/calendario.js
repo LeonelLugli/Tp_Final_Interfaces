@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         try {
-            const response = await fetch(`http://localhost/Tp_Final_Interfaces/backend/api/rutinas/obtener_rutinas.php?id=${routineId}`, {
+            const response = await fetch(`https://myproyectTPinterfaces.infy.uk/backend/api/rutinas/obtener_rutinas.php?id=${routineId}`, {
                 credentials: 'include'
             });
             if (!response.ok) throw new Error('Failed to fetch routine details');

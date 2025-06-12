@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     try {
-        const url = `http://localhost/Tp_Final_Interfaces/backend/api/rutinas/obtener_detalle_rutina.php?id=${rutinaId}`;
+        const url = `https://myproyectTPinterfaces.infy.uk/backend/api/rutinas/obtener_detalle_rutina.php?id=${rutinaId}`;
         
         const response = await fetch(url, {
             credentials: 'include'

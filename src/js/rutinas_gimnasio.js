@@ -32,7 +32,7 @@ async function filterRoutines() {
 
     try {
         // ...existing code...
-const url = `http://localhost/Tp_Final_Interfaces/backend/api/rutinas/obtener_rutinas.php?tipo=gimnasio&frecuencia=${frequency}&nivel=${difficulty}`;
+const url = `https://myproyectTPinterfaces.infy.uk/backend/api/rutinas/obtener_rutinas.php?tipo=gimnasio&frecuencia=${frequency}&nivel=${difficulty}`;
 // ...existing code...
 
         const response = await fetch(url);

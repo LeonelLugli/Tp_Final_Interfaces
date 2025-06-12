@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     try {
-        const url = 'http://localhost/Tp_Final_Interfaces/backend/api/rutinas/obtener_rutinas_usuario.php';
+        const url = 'https://myproyectTPinterfaces.infy.uk/backend/api/rutinas/obtener_rutinas_usuario.php';
         const response = await fetch(url, { credentials: 'include' });
         const result = await response.json();
 

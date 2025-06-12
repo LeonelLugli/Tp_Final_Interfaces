@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Usamos fetch() para enviar los datos a nuestro script de PHP
-            const response = await fetch('http://localhost/TP_FINAL_INTERFACES/backend/api/usuarios/registro.php', {
+            const response = await fetch('https://myproyectTPinterfaces.infy.uk/backend/api/usuarios/registro.php', {
                 method: 'POST', // Usamos el método POST
                 headers: {
                     'Content-Type': 'application/json' // Indicamos que el cuerpo de la petición es JSON
