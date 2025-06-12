@@ -22,31 +22,31 @@
                     <a href="#">Iniciar Sesión</a>
                 </div>
                 <h1 class="logo">
-                    <a href="index.html">Fitness</a>
+                    <a href="index.html">Kinetik</a>
                 </h1>
             </div>
             <nav class="main-nav">
-                <ul>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="fas fa-dumbbell"></i> Rutinas <i class="fas fa-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="entrenamientos_gimnasio.html"><i class="fas fa-dumbbell"></i> Gimnasio</a></li>
-                            <li><a href="entrenamientos_casa.html"><i class="fas fa-house-user"></i> Casa</a></li>
-                            <li><a href="crear_rutina.html"><i class="fas fa-plus-circle"></i> Crear Rutina</a></li>
-                            <li><a href="mis_rutinas.html"><i class="fas fa-list"></i> Mis Rutinas</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="registro_medidas.html"><i class="fas fa-weight"></i> Body</a></li>
-                    <li><a href="calculadora_mr.html"><i class="fas fa-calculator"></i> Calculadora de Mr</a></li>
-                    <li><a href="calculadora_rm.html"><i class="fas fa-calculator"></i> Calculadora de Rm</a></li>
-                </ul>
-            </nav>
+    <ul>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fas fa-dumbbell"></i> Rutinas <i class="fas fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="entrenamientos_gimnasio.html"><i class="fas fa-dumbbell"></i> Gimnasio</a></li>
+                <li><a href="entrenamientos_casa.html"><i class="fas fa-house-user"></i> Casa</a></li>
+                <li><a href="crear_rutina.html"><i class="fas fa-plus-circle"></i> Crear Rutina</a></li>
+                <li><a href="mis_rutinas.html"><i class="fas fa-list"></i> Mis Rutinas</a></li>
+            </ul>
+        </li>
+        <li><a href="registro_medidas.html"><i class="fas fa-ruler"></i> Medidas</a></li>
+        <li><a href="registro_peso.html"><i class="fas fa-weight"></i> Peso</a></li>
+        <li><a href="calculadora_mr.html"><i class="fas fa-calculator"></i> Calculadora de Mr</a></li>
+        <li><a href="calculadora_rm.html"><i class="fas fa-calculator"></i> Calculadora de Rm</a></li>
+    </ul>
+</nav>
         </header>
 
         <main class="main-content">
-            <!-- Sección de Medidas Corporales -->
             <div class="medidas-flex">
                 <div class="medidas-formulario">
                     <section class="body-measure-container">
@@ -111,39 +111,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Sección de Peso - Nueva sección agregada -->
-            <div class="peso-section">
-                <h3><i class="fas fa-weight"></i> Registro de Peso</h3>
-                
-                <!-- Formulario de entrada de peso -->
-                <div class="peso-input-group">
-                    <label for="peso-actual">Peso actual:</label>
-                    <input type="number" id="peso-actual" step="0.1" min="0" max="500" placeholder="0.0">
-                    <span>kg</span>
-                </div>
-                
-                <button class="btn-registro-peso" onclick="registrarPeso()">
-                    <i class="fas fa-save"></i> Registrar Peso
-                </button>
-                
-                <!-- Tabla de comparación de peso -->
-                <table class="peso-comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Peso Anterior</th>
-                            <th>Peso Actual</th>
-                            <th>Cambio</th>
-                        </tr>
-                    </thead>
-                    <tbody id="peso-comparison-body">
-                        <!-- Los datos se llenarán dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
         </main>
-
         <footer class="main-footer">
             <div class="footer-content">
                 <ul class="footer-links">
@@ -300,6 +268,89 @@
         </script>
         <script src="src/js/registro_medidas.js"></script>
         <script src="src/js/auth.js"></script>
+<footer class="main-footer">
+    <div class="footer-content">
+        <ul class="footer-links">
+            <li><a href="#">Acerca de</a></li>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#">Términos y condiciones</a></li>
+    </ul>
+        <div class="footer-copyright">
+            <p>&copy; 2025 Fitness App. Todos los derechos reservados.</p>
+        </div>
+
     </div>
+</footer>
+
+
+    
+    <script>
+        document.getElementById('medidasForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const campos = [
+                { id: 'pecho', label: 'Pecho' },
+                { id: 'brazo', label: 'Brazo izq.' },
+                { id: 'brazo_der', label: 'Brazo der.' },
+                { id: 'antebrazo', label: 'Antebrazo izq.' },
+                { id: 'antebrazo_der', label: 'Antebrazo der.' },
+                { id: 'cintura', label: 'Cintura' },
+                { id: 'pierna_izq', label: 'Pierna izq.' },
+                { id: 'pierna_der', label: 'Pierna der.' },
+                { id: 'gemelos', label: 'Gemelo der.' },
+                { id: 'gemelos_izq', label: 'Gemelo izq.' },
+                { id: 'cuello', label: 'Cuello' }
+            ];
+            // Guardar registro actual
+            const registroActual = {};
+            campos.forEach(campo => {
+                registroActual[campo.id] = document.getElementById(campo.id).value;
+            });
+            // Obtener último registro
+            const ultimoRegistro = JSON.parse(localStorage.getItem('ultimoRegistroMedidas'));
+            // Guardar nuevo registro
+            localStorage.setItem('ultimoRegistroMedidas', JSON.stringify(registroActual));
+            // Mostrar notificación
+            mostrarNotificacion('¡Registro guardado correctamente!');
+            // Mostrar comparación
+            mostrarComparacion(ultimoRegistro, registroActual, campos);
+           
+        });
+
+        function mostrarComparacion(ultimo, actual, campos) {
+            let html = '';
+            if (!ultimo) {
+                html = '<p>Este es tu primer registro.</p>';
+            } else {
+                html = '<table style="width:100%;text-align:center;"><tr><th>Medida</th><th>Anterior</th><th>Actual</th><th>Cambio</th></tr>';
+                campos.forEach(campo => {
+                    const prev = ultimo[campo.id] || '-';
+                    const curr = actual[campo.id] || '-';
+                    let cambio = '-';
+                    if (prev !== '-' && curr !== '-') {
+                        const diff = (parseFloat(curr) - parseFloat(prev)).toFixed(1);
+                        cambio = (diff > 0 ? '+' : '') + diff + ' cm';
+                    }
+                    html += `<tr>
+                        <td>${campo.label}</td>
+                        <td>${prev} cm</td>
+                        <td>${curr} cm</td>
+                        <td>${cambio}</td>
+                    </tr>`;
+                });
+                html += '</table>';
+            }
+            document.getElementById('comparacionContenido').innerHTML = html;
+        }
+
+// Notificación flotante
+        function mostrarNotificacion(msg) {
+            let notif = document.createElement('div');
+            notif.className = 'notificacion-exito';
+            notif.innerText = msg;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2500);
+        }
+    </script>
+      <script src="src/js/auth.js"></script>
 </body>
 </html>

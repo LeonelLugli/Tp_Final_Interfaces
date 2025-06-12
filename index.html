@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Fitness</title>
+    <title>Kinetik</title>
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -28,12 +28,13 @@
                     <a href="#">Iniciar Sesión</a>
                 </div>
                 <h1 class="logo">
-                    <a href="./index.html">Fitness</a>
+                    <a href="./index.html">Kinetik</a>
                 </h1>
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="registro_medidas.html"><i class="fas fa-weight"></i> Body</a></li>
+                    <li><a href="registro_medidas.html"><i class="fas fa-ruler"></i> Medidas</a></li>
+                    <li><a href="registro_peso.html"><i class="fas fa-weight"></i> Peso</a></li>
                     <li><a href="calculadora_mr.html"><i class="fas fa-calculator"></i> Calculadora de Mr</a></li>
                     <li><a href="calculadora_rm.html"><i class="fas fa-calculator"></i> Calculadora de Rm</a></li>
                 </ul>
@@ -74,15 +75,16 @@
 </main>
 
         <aside class="sidebar">
+            <section id="routineSection" class="map-section">
+            <h2>Rutina de hoy</h2>
+        </section>
             <section id="calendarSection" class="calendar-section">
     <h2>Calendario</h2>
     <div id="calendar"></div>
 </section>
         
     
-        <section id="routineSection" class="map-section">
-            <h2>Rutina de hoy</h2>
-        </section>
+        
         </aside>
     </div>
 
@@ -106,7 +108,7 @@
       .catch(err => console.error("❌ Error al registrar el Service Worker:", err));
   }
 </script>
-<script src="src/js/calendario.js"></script>
+  <script src="src/js/calendario.js"></script>
   <script src="src/js/auth.js"></script>
 
 </body>

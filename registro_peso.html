@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Peso - Fitness App</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="src/css/normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <div class="header-top">
+                <div class="user-actions">
+                    <a href="#">Registrarse</a>
+                    <a href="#">Iniciar Sesión</a>
+                </div>
+                <h1 class="logo">
+                    <a href="index.html">Kinetik</a>
+                </h1>
+            </div>
+            <nav class="main-nav">
+    <ul>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fas fa-dumbbell"></i> Rutinas <i class="fas fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="entrenamientos_gimnasio.html"><i class="fas fa-dumbbell"></i> Gimnasio</a></li>
+                <li><a href="entrenamientos_casa.html"><i class="fas fa-house-user"></i> Casa</a></li>
+                <li><a href="crear_rutina.html"><i class="fas fa-plus-circle"></i> Crear Rutina</a></li>
+                <li><a href="mis_rutinas.html"><i class="fas fa-list"></i> Mis Rutinas</a></li>
+            </ul>
+        </li>
+        <li><a href="registro_medidas.html"><i class="fas fa-ruler"></i> Medidas</a></li>
+        <li><a href="registro_peso.html"><i class="fas fa-weight"></i> Peso</a></li>
+        <li><a href="calculadora_mr.html"><i class="fas fa-calculator"></i> Calculadora de Mr</a></li>
+        <li><a href="calculadora_rm.html"><i class="fas fa-calculator"></i> Calculadora de Rm</a></li>
+    </ul>
+</nav>
+        </header>
+
+        <main class="main-content">
+            <h1><i class="fas fa-weight"></i> Registro de Peso Corporal</h1>
+            
+            <!-- Sección Principal de Peso -->
+            <div class="peso-page-container">
+                <!-- Panel de Registro -->
+                <div class="peso-registro-panel">
+                    <div class="peso-section">
+                        <h2><i class="fas fa-plus-circle"></i> Nuevo Registro</h2>
+                        
+                        <!-- Formulario de entrada de peso -->
+                        <div class="peso-input-group">
+                            <label for="peso-actual">Peso actual:</label>
+                            <input type="number" id="peso-actual" step="0.1" min="0" max="500" placeholder="0.0">
+                            <span>kg</span>
+                        </div>
+                        
+                        <button class="btn-registro-peso" onclick="registrarPeso()">
+                            <i class="fas fa-save"></i> Registrar Peso
+                        </button>
+                        
+                        <!-- Estadísticas rápidas -->
+                        <div class="peso-stats">
+                            <div class="stat-item">
+                                <h4>Último Peso</h4>
+                                <span id="ultimo-peso">-- kg</span>
+                            </div>
+                            <div class="stat-item">
+                                <h4>Cambio Reciente</h4>
+                                <span id="cambio-reciente">-- kg</span>
+                            </div>
+                            <div class="stat-item">
+                                <h4>Total Registros</h4>
+                                <span id="total-registros">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel de Historial -->
+                <div class="peso-historial-panel">
+                    <h2><i class="fas fa-chart-line"></i> Historial de Peso</h2>
+                    
+                    <!-- Filtros -->
+                    <div class="peso-filtros">
+                        <button class="btn-filtro active" onclick="filtrarRegistros('todos')">Todos</button>
+                        <button class="btn-filtro" onclick="filtrarRegistros('ultimo-mes')">Último Mes</button>
+                        <button class="btn-filtro" onclick="filtrarRegistros('ultimos-3-meses')">3 Meses</button>
+                    </div>
+                    
+                    <!-- Tabla de historial -->
+                    <div class="peso-table-container">
+                        <table class="peso-comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Peso</th>
+                                    <th>Cambio</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="peso-comparison-body">
+                                <!-- Los datos se llenarán dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <ul class="footer-links">
+                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Fitness App. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script>
+            let filtroActual = 'todos';
+
+            // Registrar nuevo peso
+            function registrarPeso() {
+                const pesoInput = document.getElementById('peso-actual');
+                const peso = parseFloat(pesoInput.value);
+                
+                if (!peso || peso <= 0) {
+                    alert('Por favor ingresa un peso válido');
+                    return;
+                }
+                
+                // Obtener registros existentes
+                const registrosPeso = JSON.parse(localStorage.getItem('registrosPeso')) || [];
+                
+                // Crear nuevo registro
+                const nuevoRegistro = {
+                    id: Date.now(),
+                    fecha: new Date().toISOString(),
+                    peso: peso,
+                    fechaFormateada: new Date().toLocaleDateString('es-ES')
+                };
+                
+                // Agregar al array y guardar
+                registrosPeso.push(nuevoRegistro);
+                localStorage.setItem('registrosPeso', JSON.stringify(registrosPeso));
+                
+                // Actualizar interfaz
+                actualizarTablaPeso();
+                actualizarEstadisticas();
+                
+                // Limpiar input
+                pesoInput.value = '';
+                
+                // Mostrar mensaje de éxito
+                mostrarNotificacion('Peso registrado exitosamente');
+            }
+
+            // Actualizar tabla de peso
+            function actualizarTablaPeso() {
+                const registrosPeso = JSON.parse(localStorage.getItem('registrosPeso')) || [];
+                const tbody = document.getElementById('peso-comparison-body');
+                
+                tbody.innerHTML = '';
+                
+                // Filtrar registros según filtro activo
+                let registrosFiltrados = filtrarPorFecha(registrosPeso);
+                
+                // Ordenar por fecha (más recientes primero)
+                registrosFiltrados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+                
+                registrosFiltrados.forEach((registro, index) => {
+                    const registroAnterior = registrosFiltrados[index + 1];
+                    const cambio = registroAnterior ? registro.peso - registroAnterior.peso : 0;
+                    const cambioClase = cambio > 0 ? 'positive' : cambio < 0 ? 'negative' : 'neutral';
+                    const cambioTexto = cambio === 0 ? '0.0' : (cambio > 0 ? `+${cambio.toFixed(1)}` : cambio.toFixed(1));
+                    
+                    const fila = `
+                        <tr>
+                            <td>${registro.fechaFormateada}</td>
+                            <td>${registro.peso.toFixed(1)} kg</td>
+                            <td class="peso-change ${cambioClase}">${cambioTexto} kg</td>
+                            <td>
+                                <button class="btn-eliminar" onclick="eliminarRegistro(${registro.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                    
+                    tbody.insertAdjacentHTML('beforeend', fila);
+                });
+                
+                if (registrosFiltrados.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4">No hay registros de peso</td></tr>';
+                }
+            }
+
+            // Filtrar registros por fecha
+            function filtrarPorFecha(registros) {
+                const ahora = new Date();
+                
+                switch(filtroActual) {
+                    case 'ultimo-mes':
+                        const unMesAtras = new Date(ahora.getFullYear(), ahora.getMonth() - 1, ahora.getDate());
+                        return registros.filter(r => new Date(r.fecha) >= unMesAtras);
+                    
+                    case 'ultimos-3-meses':
+                        const tresMesesAtras = new Date(ahora.getFullYear(), ahora.getMonth() - 3, ahora.getDate());
+                        return registros.filter(r => new Date(r.fecha) >= tresMesesAtras);
+                    
+                    default:
+                        return registros;
+                }
+            }
+
+            // Cambiar filtro de registros
+            function filtrarRegistros(filtro) {
+                filtroActual = filtro;
+                
+                // Actualizar botones activos
+                document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                // Actualizar tabla
+                actualizarTablaPeso();
+            }
+
+            // Eliminar registro
+            function eliminarRegistro(id) {
+                if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
+                    let registrosPeso = JSON.parse(localStorage.getItem('registrosPeso')) || [];
+                    registrosPeso = registrosPeso.filter(r => r.id !== id);
+                    localStorage.setItem('registrosPeso', JSON.stringify(registrosPeso));
+                    
+                    actualizarTablaPeso();
+                    actualizarEstadisticas();
+                    mostrarNotificacion('Registro eliminado');
+                }
+            }
+
+            // Actualizar estadísticas
+            function actualizarEstadisticas() {
+                const registrosPeso = JSON.parse(localStorage.getItem('registrosPeso')) || [];
+                
+                if (registrosPeso.length === 0) {
+                    document.getElementById('ultimo-peso').textContent = '-- kg';
+                    document.getElementById('cambio-reciente').textContent = '-- kg';
+                    document.getElementById('total-registros').textContent = '0';
+                    return;
+                }
+                
+                // Ordenar por fecha
+                const registrosOrdenados = registrosPeso.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+                
+                // Último peso
+                const ultimoPeso = registrosOrdenados[0].peso;
+                document.getElementById('ultimo-peso').textContent = `${ultimoPeso.toFixed(1)} kg`;
+                
+                // Cambio reciente
+                if (registrosOrdenados.length > 1) {
+                    const cambio = ultimoPeso - registrosOrdenados[1].peso;
+                    const cambioTexto = cambio > 0 ? `+${cambio.toFixed(1)}` : cambio.toFixed(1);
+                    const cambioElement = document.getElementById('cambio-reciente');
+                    cambioElement.textContent = `${cambioTexto} kg`;
+                    cambioElement.className = cambio > 0 ? 'positive' : cambio < 0 ? 'negative' : 'neutral';
+                } else {
+                    document.getElementById('cambio-reciente').textContent = '-- kg';
+                }
+                
+                // Total registros
+                document.getElementById('total-registros').textContent = registrosPeso.length;
+            }
+
+            // Notificación
+            function mostrarNotificacion(msg) {
+                const notif = document.createElement('div');
+                notif.className = 'notificacion-exito';
+                notif.textContent = msg;
+                document.body.appendChild(notif);
+                setTimeout(() => notif.remove(), 2500);
+            }
+
+            // Cargar datos al iniciar
+            document.addEventListener('DOMContentLoaded', function() {
+                actualizarTablaPeso();
+                actualizarEstadisticas();
+            });
+        </script>
+        <script src="src/js/auth.js"></script>
+    </div>
+</body>
+</html>
