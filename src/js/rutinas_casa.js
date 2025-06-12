@@ -226,8 +226,8 @@ function createRoutineCard(routine) {
         <div class="workout-card">
             <h3>${routine.title}</h3>
             <div class="routine-info">
-                <p>Frequency: ${routine.frequency}</p>
-                <p>Rest: ${routine.rest}</p>
+                <p>Frecuencia: ${routine.frequency}</p>
+                <p>Descanso: ${routine.rest}</p>
             </div>
             <div class="workout-columns">
                 ${routine.days.map(day => `
