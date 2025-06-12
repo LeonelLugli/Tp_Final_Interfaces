@@ -189,4 +189,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     initializeCalendar();
+    function inicializarBotonBorrarTodas() {
+    const btn = document.getElementById('btnBorrarTodasRutinas');
+    if (!btn) return;
+
+    btn.onclick = async function() {
+        const confirmar = confirm('¿Seguro que quieres borrar TODAS las rutinas programadas? Esta acción no se puede deshacer.');
+        if (!confirmar) return;
+
+        try {
+            const response = await fetch('http://localhost/TP_FINAL_INTERFACES/backend/api/rutinas/borrar_todas_rutinas.php', {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const result = await response.json();
+            if (result.success) {
+                alert('✅ Todas las rutinas programadas fueron borradas.');
+                location.reload();
+            } else {
+                alert('❌ Error: ' + (result.mensaje || 'No se pudieron borrar las rutinas.'));
+            }
+        } catch (e) {
+            alert('❌ Error de conexión con el servidor.');
+        }
+    };
+}
+
+// Llama a esta función después de initializeCalendar();
+inicializarBotonBorrarTodas();
 });
