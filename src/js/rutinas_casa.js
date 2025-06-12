@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('frequency').addEventListener('change', filterRoutines);
     document.getElementById('difficulty').addEventListener('change', filterRoutines);
+    document.getElementById('workoutsGrid').addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('btn-primary')) {
+            const routineId = event.target.dataset.id;
+            programRoutine(routineId);
+        }
+    });
 });
 
 async function filterRoutines() {
@@ -60,6 +66,38 @@ function createRoutineCard(routine) {
                 </div>
             `).join('')}
         </div>
-        <button class="btn-primary">Comenzar Rutina</button>
+        <button class="btn-primary" data-id="${routine.id}">Comenzar Rutina</button>
     </div>`;
+}
+
+async function programRoutine(routineId) {
+    // Asignar la fecha actual automáticamente
+    const today = new Date();
+    const fechaInicio = today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
+    try {
+        const response = await fetch('http://localhost/Tp_Final_Interfaces/backend/api/rutinas/programar_rutina.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_rutina: routineId,
+                fecha_inicio: fechaInicio
+            }),
+            credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+            alert(`¡Rutina programada con éxito a partir de hoy (${fechaInicio})!`);
+            window.location.href = 'index.html';
+        } else {
+            alert(`Error al programar la rutina: ${result.mensaje}`);
+        }
+    } catch (error) {
+        console.error('Error de red:', error);
+        alert('Error de conexión al intentar programar la rutina.');
+    }
 }

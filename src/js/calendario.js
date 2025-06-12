@@ -1,234 +1,192 @@
-let calendarInstance;
-
 document.addEventListener('DOMContentLoaded', function() {
     const calendarEl = document.getElementById('calendar');
-    
-    // Datos de ejemplo de rutinas programadas
-    const rutinasCalendario = [
-        {
-            id: 'rutina-1',
-            title: 'Pecho y Tríceps',
-            date: '2025-06-11',
-            tipo: 'gimnasio',
-            url: 'ver_rutina.html?id=pecho-triceps&fecha=2025-06-11'
-        },
-        {
-            id: 'rutina-2',
-            title: 'Espalda y Bíceps',
-            date: '2025-06-12',
-            tipo: 'gimnasio',
-            url: 'ver_rutina.html?id=espalda-biceps&fecha=2025-06-12'
-        },
-        {
-            id: 'rutina-3',
-            title: 'Piernas',
-            date: '2025-06-13',
-            tipo: 'gimnasio',
-            url: 'ver_rutina.html?id=piernas&fecha=2025-06-13'
-        },
-        {
-            id: 'rutina-4',
-            title: 'Cardio en Casa',
-            date: '2025-06-14',
-            tipo: 'casa',
-            url: 'ver_rutina.html?id=cardio-casa&fecha=2025-06-14'
-        },
-        {
-            id: 'rutina-5',
-            title: 'Hombros y Abdomen',
-            date: '2025-06-15',
-            tipo: 'gimnasio',
-            url: 'ver_rutina.html?id=hombros-abdomen&fecha=2025-06-15'
-        }
-    ];
-    
-    // Crear calendario con tu diseño personalizado
-    calendarInstance = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        height: 'auto',
-        headerToolbar: false, // Mantener false para usar tu navegación personalizada
-        locale: 'es',
-        editable: true,
-        selectable: true,
-        fixedWeekCount: false,
-        showNonCurrentDates: false,
-        events: rutinasCalendario.map(rutina => ({
-            id: rutina.id,
-            title: rutina.title,
-            date: rutina.date,
-            backgroundColor: rutina.tipo === 'gimnasio' ? '#00b4d8' : '#ff6b6b',
-            borderColor: rutina.tipo === 'gimnasio' ? '#0077b6' : '#e55353',
-            textColor: '#ffffff',
-            extendedProps: {
-                tipo: rutina.tipo,
-                url: rutina.url
-            }
-        })),
-        
-        // Manejar clic en eventos (rutinas)
-        eventClick: function(info) {
-            info.jsEvent.preventDefault();
-            
-            const rutina = info.event;
-            const confirmacion = confirm(
-                `¿Quieres ver la rutina "${rutina.title}" programada para este día?`
-            );
-            
-            if (confirmacion) {
-                window.location.href = rutina.extendedProps.url;
-            }
-        },
-        
-        // Manejar clic en días vacíos
-        dateClick: function(info) {
-            const fecha = info.dateStr;
-            const fechaObj = new Date(fecha + 'T00:00:00');
-            const hoy = new Date();
-            hoy.setHours(0, 0, 0, 0);
-            
-            // Verificar si hay rutina programada para este día
-            const rutinaDelDia = rutinasCalendario.find(r => r.date === fecha);
-            
-            if (rutinaDelDia) {
-                const confirmacion = confirm(
-                    `¿Quieres ver la rutina "${rutinaDelDia.title}" programada para el ${fechaObj.toLocaleDateString('es-ES')}?`
-                );
-                
-                if (confirmacion) {
-                    window.location.href = rutinaDelDia.url;
-                }
-            } else {
-                // Si no hay rutina, ofrecer crear una
-                const fechaFormateada = fechaObj.toLocaleDateString('es-ES');
-                
-                if (fechaObj < hoy) {
-                    alert(`No hay rutina programada para el ${fechaFormateada} (fecha pasada).`);
-                } else {
-                    const crearRutina = confirm(
-                        `No hay rutina programada para el ${fechaFormateada}. ¿Quieres crear una rutina para este día?`
-                    );
-                    
-                    if (crearRutina) {
-                        window.location.href = `crear_rutina.html?fecha=${fecha}`;
-                    }
-                }
-            }
-        },
-        
-        // Personalizar la apariencia de los días
-        dayCellDidMount: function(info) {
-            const fecha = info.dateStr;
-            const rutinaDelDia = rutinasCalendario.find(r => r.date === fecha);
-            
-            if (rutinaDelDia) {
-                // Agregar clase especial a días con rutina
-                info.el.classList.add('dia-con-rutina');
-                info.el.style.cursor = 'pointer';
-                info.el.title = `Clic para ver: ${rutinaDelDia.title}`;
-            } else {
-                // Días sin rutina
-                info.el.classList.add('dia-sin-rutina');
-                info.el.style.cursor = 'pointer';
-                info.el.title = 'Clic para programar rutina';
-            }
-        }
-    });
-    
-    calendarInstance.render();
+    const routineSection = document.getElementById('routineSection');
+    let calendarInstance;
 
-    // Crear barra de navegación personalizada (TU DISEÑO ORIGINAL)
-    const navContainer = document.createElement('div');
-    navContainer.className = 'calendar-nav';
-    
-    // Crear contenedor para los controles de navegación
-    const navControls = document.createElement('div');
-    navControls.className = 'nav-controls';
-    
-    const prevBtn = document.createElement('button');
-    prevBtn.innerHTML = '←';
-    prevBtn.onclick = () => {
-        calendarInstance.prev();
-        updateTitle();
-    };
-    
-    const monthTitle = document.createElement('div');
-    monthTitle.className = 'month-title';
-    
-    const nextBtn = document.createElement('button');
-    nextBtn.innerHTML = '→';
-    nextBtn.onclick = () => {
-        calendarInstance.next();
-        updateTitle();
-    };
-    
-    const todayBtn = document.createElement('button');
-    todayBtn.className = 'today-button';
-    todayBtn.innerHTML = 'Día Actual';
-    todayBtn.onclick = () => {
-        calendarInstance.today();
-        updateTitle();
-    };
-    
-    function updateTitle() {
-        const date = calendarInstance.getDate();
-        const formattedDate = date.toLocaleDateString('es', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
+    function initializeCalendar() {
+        calendarInstance = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            height: 'auto',
+            headerToolbar: false,
+            locale: 'es',
+            editable: false,
+            selectable: true,
+            fixedWeekCount: false,
+            showNonCurrentDates: false,
+            events: fetchProgrammedRoutines,
+            eventClick: function(info) {
+                const routineId = info.event.id;
+                const dayIndex = info.event.extendedProps.dayIndex;
+                showRoutineForDate(routineId, dayIndex);
+            },
+            dateClick: function(info) {
+                const eventOnDate = calendarInstance.getEvents().find(e => e.startStr.split('T')[0] === info.dateStr);
+                if (eventOnDate) {
+                    const routineId = eventOnDate.id;
+                    const dayIndex = eventOnDate.extendedProps.dayIndex;
+                    showRoutineForDate(routineId, dayIndex);
+                } else {
+                    displayNoRoutine(info.dateStr);
+                }
+            },
         });
-        monthTitle.innerHTML = formattedDate;
+
+        calendarInstance.render();
+        setupCustomNavigation();
+        updateRoutineViewForToday();
     }
-    
-    updateTitle();
-    
-    // Primero agregamos los elementos al navControls
-    navControls.appendChild(prevBtn);
-    navControls.appendChild(monthTitle);
-    navControls.appendChild(nextBtn);
-    
-    // Luego agregamos navControls y todayBtn al contenedor principal
-    navContainer.appendChild(navControls);
-    navContainer.appendChild(todayBtn);
-    
-    calendarEl.insertBefore(navContainer, calendarEl.firstChild);
-    
-    // Mostrar rutina de hoy en la sección lateral
-    mostrarRutinaDeHoy();
-    
-    function mostrarRutinaDeHoy() {
-        const hoy = new Date().toISOString().split('T')[0];
-        const rutinaHoy = rutinasCalendario.find(r => r.date === hoy);
-        const rutinaSection = document.getElementById('routineSection');
-        
-        if (rutinaHoy) {
-            rutinaSection.innerHTML = `
-                <h2>Rutina de hoy</h2>
-                <div class="rutina-hoy">
-                    <div class="rutina-card ${rutinaHoy.tipo}">
-                        <div class="rutina-header">
-                            <i class="fas fa-${rutinaHoy.tipo === 'gimnasio' ? 'dumbbell' : 'home'}"></i>
-                            <h3>${rutinaHoy.title}</h3>
-                        </div>
-                        <div class="rutina-tipo">
-                            ${rutinaHoy.tipo === 'gimnasio' ? 'Gimnasio' : 'En Casa'}
-                        </div>
-                        <button class="btn-ver-rutina" onclick="window.location.href='${rutinaHoy.url}'">
-                            <i class="fas fa-play"></i> Comenzar Rutina
-                        </button>
-                    </div>
-                </div>
-            `;
-        } else {
-            rutinaSection.innerHTML = `
-                <h2>Rutina de hoy</h2>
-                <div class="no-rutina">
-                    <i class="fas fa-calendar-plus"></i>
-                    <p>No hay rutina programada para hoy</p>
-                    <button class="btn-crear-rutina" onclick="window.location.href='crear_rutina.html?fecha=${hoy}'">
-                        <i class="fas fa-plus"></i> Crear Rutina
-                    </button>
-                </div>
-            `;
+
+    async function fetchProgrammedRoutines(fetchInfo, successCallback, failureCallback) {
+        try {
+            const response = await fetch('http://localhost/Tp_Final_Interfaces/backend/api/rutinas/obtener_rutinas_programadas.php', {
+                credentials: 'include'
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const events = await response.json();
+            successCallback(events);
+        } catch (error) {
+            console.error('Error fetching programmed routines:', error);
+            failureCallback(error);
         }
     }
+
+    async function showRoutineForDate(routineId, dayIndex) {
+        if (!routineId) {
+            displayNoRoutine(new Date().toISOString().split('T')[0]);
+            return;
+        }
+        try {
+            const response = await fetch(`http://localhost/Tp_Final_Interfaces/backend/api/rutinas/obtener_rutinas.php?id=${routineId}`, {
+                credentials: 'include'
+            });
+            if (!response.ok) throw new Error('Failed to fetch routine details');
+            
+            const result = await response.json();
+            if (result.success) {
+                displayRoutineDay(result.rutina, dayIndex);
+            } else {
+                displayNoRoutine(new Date().toISOString().split('T')[0], result.mensaje);
+            }
+        } catch (error) {
+            console.error('Error fetching routine details:', error);
+            displayNoRoutine(new Date().toISOString().split('T')[0], 'Error al cargar la rutina.');
+        }
+    }
+
+    function displayRoutineDay(routine, dayIndex) {
+        const dayData = routine.days[dayIndex];
+        if (!dayData) {
+            displayNoRoutine(new Date().toISOString().split('T')[0], 'Día de descanso o datos no encontrados.');
+            return;
+        }
+
+        let exercisesHtml = dayData.exercises.map(ex => 
+            `<li>${ex}</li>`
+        ).join('');
+
+        routineSection.innerHTML = `
+            <h2>Rutina de Hoy</h2>
+            <div class="rutina-hoy">
+                <div class="rutina-card ${routine.tipo || ''}">
+                    <div class="rutina-header">
+                        <i class="fas fa-${(routine.tipo || 'casa') === 'gimnasio' ? 'dumbbell' : 'home'}"></i>
+                        <h3>${routine.title}</h3>
+                    </div>
+                    <h4>${dayData.name}</h4>
+                    <ul class="exercise-list-detailed">
+                        ${exercisesHtml}
+                    </ul>
+                </div>
+            </div>
+        `;
+    }
+
+    function displayNoRoutine(dateStr, message = 'No hay rutina programada') {
+        const formattedDate = new Date(dateStr + 'T00:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+        routineSection.innerHTML = `
+            <h2>Rutina para ${formattedDate}</h2>
+            <div class="no-rutina">
+                <i class="fas fa-calendar-plus"></i>
+                <p>${message}</p>
+                <button class="btn-crear-rutina" onclick="window.location.href='crear_rutina.html?fecha=${dateStr}'">
+                    <i class="fas fa-plus"></i> Crear Rutina Personalizada
+                </button>
+            </div>
+        `;
+    }
+
+    function updateRoutineViewForToday() {
+        const todayStr = new Date().toISOString().split('T')[0];
+        const eventOnDate = calendarInstance.getEvents().find(e => e.startStr.split('T')[0] === todayStr);
+        if (eventOnDate) {
+            const routineId = eventOnDate.id;
+            const dayIndex = eventOnDate.extendedProps.dayIndex;
+            showRoutineForDate(routineId, dayIndex);
+        } else {
+            // Wait for events to load
+            setTimeout(() => {
+                const eventOnDate = calendarInstance.getEvents().find(e => e.startStr.split('T')[0] === todayStr);
+                 if (eventOnDate) {
+                    const routineId = eventOnDate.id;
+                    const dayIndex = eventOnDate.extendedProps.dayIndex;
+                    showRoutineForDate(routineId, dayIndex);
+                } else {
+                    displayNoRoutine(todayStr);
+                }
+            }, 1000); // wait 1 sec for events to fetch
+        }
+    }
+
+    function setupCustomNavigation() {
+        const navContainer = document.createElement('div');
+        navContainer.className = 'calendar-nav';
+        
+        const navControls = document.createElement('div');
+        navControls.className = 'nav-controls';
+        
+        const prevBtn = document.createElement('button');
+        prevBtn.innerHTML = '←';
+        prevBtn.onclick = () => {
+            calendarInstance.prev();
+            updateTitle();
+        };
+        
+        const monthTitle = document.createElement('div');
+        monthTitle.className = 'month-title';
+        
+        const nextBtn = document.createElement('button');
+        nextBtn.innerHTML = '→';
+        nextBtn.onclick = () => {
+            calendarInstance.next();
+            updateTitle();
+        };
+        
+        const todayBtn = document.createElement('button');
+        todayBtn.className = 'today-button';
+        todayBtn.innerHTML = 'Día Actual';
+        todayBtn.onclick = () => {
+            calendarInstance.today();
+            updateTitle();
+        };
+        
+        function updateTitle() {
+            const date = calendarInstance.getDate();
+            monthTitle.innerHTML = date.toLocaleDateString('es', { month: 'long', year: 'numeric' });
+        }
+        
+        updateTitle();
+        
+        navControls.appendChild(prevBtn);
+        navControls.appendChild(monthTitle);
+        navControls.appendChild(nextBtn);
+        
+        navContainer.appendChild(navControls);
+        navContainer.appendChild(todayBtn);
+        
+        calendarEl.insertBefore(navContainer, calendarEl.firstChild);
+    }
+
+    initializeCalendar();
 });
