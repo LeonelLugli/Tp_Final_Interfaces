@@ -50,11 +50,11 @@
     
     <div class="training-filters">
         <select id="frequency" onchange="filterRoutines()">
-            <option value="">Seleccione frecuencia</option>
-            <option value="full-body">Full Body (3 días)</option>
-            <option value="upper-lower">Upper/Lower (4 días)</option>
-            <option value="push-pull">Push/Pull/Legs (6 días)</option>
-        </select>
+    <option value="">Seleccione frecuencia</option>
+    <option value="full-body">Full Body (3 días)</option>
+    <option value="upper-lower">Torso/Pierna (4 días)</option>
+    <option value="push-pull">Push/Pull/Legs (6 días)</option>
+</select>
         
         <select id="difficulty" onchange="filterRoutines()">
             <option value="">Seleccione nivel</option>
@@ -87,7 +87,6 @@
         </footer>
     </div>
     <script src="src/js/rutinas_gimnasio.js"></script>
-    <script src="script.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js')

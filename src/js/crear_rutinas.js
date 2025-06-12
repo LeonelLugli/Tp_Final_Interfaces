@@ -1,147 +1,113 @@
+// CÓDIGO FINAL Y DEFINITIVO PARA crear_rutinas.js
 document.addEventListener('DOMContentLoaded', function() {
+    // --- OBTENCIÓN DE ELEMENTOS DEL DOM ---
     const routineFrequency = document.getElementById('routineFrequency');
     const daysContainer = document.getElementById('daysContainer');
     const daySelect = document.getElementById('daySelect');
     const addExercise = document.getElementById('addExercise');
-    const createRoutine = document.getElementById('createRoutine');
+    const createRoutineBtn = document.getElementById('createRoutine');
+    const exerciseForm = document.getElementById('exerciseForm');
 
+    // --- OBJETO PARA CONSTRUIR LA RUTINA ---
     let currentRoutine = {
-        title: '',
-        frequency: '',
-        rest: '',
-        days: []
+        nombre: '',
+        frecuencia: '',
+        descanso: '',
+        dias: []
     };
 
-    routineFrequency.addEventListener('change', function() {
-        const frequency = parseInt(this.value);
-        currentRoutine.days = [];
-        daySelect.innerHTML = '<option value="">Selecciona el día</option>';
-        daysContainer.innerHTML = '';
-
-        for (let i = 1; i <= frequency; i++) {
-            const dayName = `Día ${i}`;
-            
-            // Agregar día al objeto de rutina
-            currentRoutine.days.push({
-                name: dayName,
-                exercises: []
-            });
-
-            // Agregar opción al select
-            daySelect.innerHTML += `<option value="${i-1}">${dayName}</option>`;
-
-            // Crear contenedor visual para el día
-            const dayCard = document.createElement('div');
-            dayCard.className = 'day-card';
-            dayCard.id = `day-${i-1}`;
-            dayCard.innerHTML = `
-                <h3>${dayName}</h3>
-                <ul class="exercise-list"></ul>
-            `;
-            daysContainer.appendChild(dayCard);
-        }
-    });
-
-    addExercise.addEventListener('click', function() {
-    const dayIndex = daySelect.value;
-    const exerciseName = document.getElementById('exerciseName').value;
-    const muscleGroup = document.getElementById('muscleGroup').value;
-    const sets = document.getElementById('exerciseSets').value;
-    const reps = document.getElementById('exerciseReps').value;
-
-    if (!dayIndex || !exerciseName || !muscleGroup || !sets || !reps) {
-        alert('Por favor completa todos los campos');
-        return;
-    }
-
-    const exercise = {
-        name: exerciseName,
-        muscle: muscleGroup,
-        sets: sets,
-        reps: reps
-    };
-    
-    // Agregar al objeto de rutina
-    currentRoutine.days[dayIndex].exercises.push(exercise);
-
-    // Actualizar UI
-    const dayCard = document.querySelector(`#day-${dayIndex}`);
-    const exerciseList = dayCard.querySelector('.exercise-list');
-    const exerciseItem = document.createElement('li');
-    exerciseItem.innerHTML = `
-        <span class="muscle-tag ${muscleGroup}">${muscleGroup}</span>
-        ${exerciseName} (${sets}×${reps})
-    `;
-    exerciseList.appendChild(exerciseItem);
-
-    // Limpiar campos
-    document.getElementById('exerciseName').value = '';
-    document.getElementById('muscleGroup').value = '';
-    document.getElementById('exerciseSets').value = '';
-    document.getElementById('exerciseReps').value = '';
-});
-
-    createRoutine.addEventListener('click', function() {
-        currentRoutine.title = document.getElementById('routineTitle').value;
-        currentRoutine.frequency = `${routineFrequency.value} veces por semana`;
-        currentRoutine.rest = document.getElementById('routineRest').value;
-
-        if (!currentRoutine.title || !currentRoutine.frequency || !currentRoutine.rest) {
-            alert('Por favor completa la información de la rutina');
-            return;
-        }
-
-        const emptyDays = currentRoutine.days.filter(day => day.exercises.length === 0);
-        if (emptyDays.length > 0) {
-            alert('Todos los días deben tener al menos un ejercicio');
-            return;
-        }
-
-        // Guardar rutina
-        const savedRoutines = JSON.parse(localStorage.getItem('customRoutines') || '[]');
-        savedRoutines.push(currentRoutine);
-        localStorage.setItem('customRoutines', JSON.stringify(savedRoutines));
-        
-        alert('¡Rutina creada exitosamente!');
-        window.location.href = 'index.html';
-    });
-    // Función para actualizar opciones de descanso
+    // --- FUNCIÓN PARA ACTUALIZAR DÍAS DE DESCANSO ---
     function updateRestOptions(frequency) {
         const restSelect = document.getElementById('routineRest');
         restSelect.innerHTML = '<option value="">Días de descanso</option>';
-        
-        switch(parseInt(frequency)) {
-            case 3:
-                restSelect.innerHTML += `
-                    <option value="1">1 día entre sesiones</option>
-                    <option value="2">2 días entre sesiones</option>
-                `;
-                break;
-            case 4:
-                restSelect.innerHTML += `
-                    <option value="1">1 día entre sesiones</option>
-                    <option value="2">2 días alternados</option>
-                `;
-                break;
-            case 5:
-                restSelect.innerHTML += `
-                    <option value="1">1 día entre sesiones</option>
-                    <option value="2">2 días al final</option>
-                `;
-                break;
-            case 6:
-                restSelect.innerHTML += `
-                    <option value="1">1 día al final</option>
-                `;
-                break;
+        if (!frequency) return;
+        let options = '';
+        switch (parseInt(frequency)) {
+            case 3: options = '<option value="1 día entre sesiones">1 día entre sesiones</option>'; break;
+            case 4: options = '<option value="Alternar días">Alternar días</option>'; break;
+            case 5: options = '<option value="Descansar fines de semana">Descansar fines de semana</option>'; break;
+            case 6: options = '<option value="1 día al final">1 día al final</option>'; break;
         }
+        restSelect.innerHTML += options;
     }
 
-    // Evento para actualizar días de descanso cuando cambia la frecuencia
+    // --- LÓGICA PARA CREAR LOS DÍAS VISUALMENTE ---
     routineFrequency.addEventListener('change', function() {
-        const frequency = parseInt(this.value);
+        const frequency = parseInt(this.value, 10) || 0;
+        currentRoutine.dias = [];
+        let dayOptions = '<option value="">Selecciona el día</option>';
+        daysContainer.innerHTML = '';
         updateRestOptions(frequency);
-        
 
+        for (let i = 1; i <= frequency; i++) {
+            currentRoutine.dias.push({ numero_dia: i, nombre_dia: `Día ${i}`, ejercicios: [] });
+            dayOptions += `<option value="${i - 1}">Día ${i}</option>`;
+            const dayCard = document.createElement('div');
+            dayCard.className = 'day-card';
+            dayCard.id = `day-${i - 1}`;
+            dayCard.innerHTML = `<h3>Día ${i}</h3><ul class="exercise-list"></ul>`;
+            daysContainer.appendChild(dayCard);
+        }
+        daySelect.innerHTML = dayOptions;
+    });
+
+    // --- LÓGICA PARA AÑADIR EJERCICIOS ---
+    addExercise.addEventListener('click', function(e) {
+        e.preventDefault();
+        const dayIndex = daySelect.value;
+        const exerciseData = {
+            nombre_ejercicio: document.getElementById('exerciseName').value.trim(),
+            grupo_muscular: document.getElementById('muscleGroup').value,
+            series: document.getElementById('exerciseSets').value.trim(),
+            repeticiones: document.getElementById('exerciseReps').value.trim()
+        };
+        if (dayIndex === "" || !exerciseData.nombre_ejercicio || !exerciseData.grupo_muscular || !exerciseData.series || !exerciseData.repeticiones) {
+            alert('Por favor completa todos los campos del ejercicio');
+            return;
+        }
+        currentRoutine.dias[dayIndex].ejercicios.push(exerciseData);
+        const exerciseList = document.querySelector(`#day-${dayIndex} .exercise-list`);
+        exerciseList.innerHTML += `<li><span class="muscle-tag ${exerciseData.grupo_muscular}">${exerciseData.grupo_muscular}</span> ${exerciseData.nombre_ejercicio} (${exerciseData.series}×${exerciseData.repeticiones})</li>`;
+        exerciseForm.reset();
+    });
+
+    // --- LÓGICA PARA GUARDAR LA RUTINA EN LA BASE DE DATOS ---
+    createRoutineBtn.addEventListener('click', async function() {
+        const sessionDataString = sessionStorage.getItem('userSession') || localStorage.getItem('userSession');
+        if (!sessionDataString) {
+            alert('Debes iniciar sesión para guardar la rutina');
+            return;
+        }
+
+        currentRoutine.nombre = document.getElementById('routineTitle').value.trim();
+        currentRoutine.frecuencia = document.getElementById('routineFrequency').value;
+        currentRoutine.descanso = document.getElementById('routineRest').value;
+
+        if (!currentRoutine.nombre || !currentRoutine.frecuencia) {
+            alert('Por favor, asigna un nombre y una frecuencia a la rutina.');
+            return;
+        }
+        if (currentRoutine.dias.some(day => day.ejercicios.length === 0)) {
+            alert('Todos los días deben tener al menos un ejercicio.');
+            return;
+        }
+
+        try {
+            // URL CORREGIDA Y COMPLETA
+            const url = 'http://localhost/Tp_Final_Interfaces/backend/api/rutinas/crear_rutina.php';
+            const response = await fetch(url, {
+                method: 'POST',
+                credentials: 'include', // Línea para enviar la cookie de sesión
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(currentRoutine)
+            });
+
+            const result = await response.json();
+            alert(result.mensaje);
+            if (response.ok) { window.location.href = 'mis_rutinas.html'; }
+        } catch (err) {
+            console.error('Error de conexión:', err);
+            alert('Error de conexión. Revisa la consola (F12).');
+        }
     });
 });

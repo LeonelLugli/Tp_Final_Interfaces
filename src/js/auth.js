@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // 2. Si encontramos datos, significa que el usuario está logueado
         const userData = JSON.parse(sessionData);
 
+        // Guarda el id_usuario en localStorage para otras partes de la app
+        if (userData.id_usuario) {
+            localStorage.setItem('id_usuario', userData.id_usuario);
+        }
+
         // Buscamos el contenedor de los botones de usuario en tu HTML
         const userActionsDiv = document.querySelector('.user-actions');
         
@@ -20,11 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const logoutBtn = document.getElementById('logoutBtn');
             logoutBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-
                 // Borramos los datos de la sesión del navegador
                 sessionStorage.removeItem('userSession');
                 localStorage.removeItem('userSession');
-
+                localStorage.removeItem('id_usuario'); // <-- Limpia el id_usuario también
                 // Redirigimos al usuario a la página de login
                 window.location.href = 'login.html';
             });

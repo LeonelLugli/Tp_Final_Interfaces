@@ -50,12 +50,13 @@
             <h1>Entrenamientos en Casa</h1>
             
     <div class="training-filters">
-        <select id="frequency" onchange="filterRoutines()">
-            <option value="">Seleccione frecuencia</option>
-            <option value="3">3 veces por semana</option>
-            <option value="4">4 veces por semana</option>
-        </select>
-        
+   <select id="frequency" onchange="filterRoutines()">
+    <option value="">Seleccione tipo de rutina</option>
+    <option value="full-body">Full Body</option>
+    <option value="upper-lower">Torso/Pierna</option>
+</select>
+   
+</select>
         <select id="difficulty" onchange="filterRoutines()">
             <option value="">Seleccione nivel</option>
             <option value="principiante">Principiante</option>
@@ -87,7 +88,7 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
+   
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js')

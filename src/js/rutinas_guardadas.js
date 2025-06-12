@@ -1,132 +1,138 @@
-// Datos de ejemplo para mostrar cómo se vería la página
-const rutinasEjemplo = [
-    {
-        id: 1,
-        nombre: "Push Pull Legs",
-        tipo: "push-pull-legs",
-        dias: 6,
-        descripcion: "Rutina de 6 días dividida en empuje, tirón y piernas",
-        fechaCreacion: "2023-12-01",
-        favorita: true,
-        diasEntrenamiento: ["Lunes - Push", "Martes - Pull", "Miércoles - Legs"]
-    },
-    {
-        id: 2,
-        nombre: "Upper Lower",
-        tipo: "upper-lower",
-        dias: 4,
-        descripcion: "Rutina de 4 días alternando tren superior e inferior",
-        fechaCreacion: "2023-11-15",
-        favorita: false,
-        diasEntrenamiento: ["Lunes - Upper", "Martes - Lower"]
-    }
-];
+// CÓDIGO FINAL, COMPLETO Y CORREGIDO para rutinas_guardadas.js
 
-// Cargar rutinas al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
-    // Intentar cargar rutinas del localStorage primero
-    const rutinasGuardadas = localStorage.getItem('rutinasCreadas');
-    if (rutinasGuardadas) {
-        const rutinas = JSON.parse(rutinasGuardadas);
-        if (rutinas.length > 0) {
-            cargarRutinas(rutinas);
-            actualizarEstadisticas(rutinas);
-            return;
-        }
+document.addEventListener('DOMContentLoaded', async function() {
+    // Esta parte carga las rutinas cuando la página se abre
+    const sessionDataString = sessionStorage.getItem('userSession') || localStorage.getItem('userSession');
+    if (!sessionDataString) {
+        mostrarMensajeVacio();
+        return; 
     }
-    
-    // Si no hay rutinas guardadas, mostrar mensaje de no rutinas
-    mostrarMensajeVacio();
+
+    try {
+        const url = 'http://localhost/Tp_Final_Interfaces/backend/api/rutinas/obtener_rutinas_usuario.php';
+        const response = await fetch(url, { credentials: 'include' });
+        const result = await response.json();
+
+        if (response.ok && result.success && Array.isArray(result.rutinas) && result.rutinas.length > 0) {
+            cargarRutinas(result.rutinas);
+        } else {
+            mostrarMensajeVacio();
+        }
+    } catch (err) {
+        console.error("Error al obtener las rutinas:", err);
+        mostrarMensajeVacio();
+    }
 });
 
 function cargarRutinas(rutinas) {
     const container = document.getElementById('routinesContainer');
-    const noRoutinesMessage = document.getElementById('noRoutinesMessage');
     const mainContainer = document.querySelector('.my-routines-container');
+    const noRoutinesMessage = document.getElementById('noRoutinesMessage');
+
+    mainContainer.style.display = 'block';
+    noRoutinesMessage.style.display = 'none';
+    container.innerHTML = '';
     
-    // Agregar clase que muestra rutinas (y el sidebar)
-    document.body.classList.add('has-routines');
+    rutinas.forEach(rutina => {
+        const cardElement = crearTarjetaRutina(rutina);
+        container.appendChild(cardElement);
+    });
     
-    // Resto del código igual...
+    actualizarEstadisticas(rutinas);
 }
+
 function mostrarMensajeVacio() {
-    const container = document.getElementById('routinesContainer');
-    const noRoutinesMessage = document.getElementById('noRoutinesMessage');
     const mainContainer = document.querySelector('.my-routines-container');
-    
-    // Quitar clase que muestra rutinas
-    document.body.classList.remove('has-routines');
-    
-    // Ocultar completamente el grid Y el contenedor principal
-    if (container) {
-        container.style.display = 'none';
-        container.innerHTML = '';
-    }
-    
-    if (mainContainer) {
-        mainContainer.style.display = 'none';
-    }
-    
-    // Mostrar mensaje
-    if (noRoutinesMessage) {
-        noRoutinesMessage.style.display = 'flex';
-    }
+    const noRoutinesMessage = document.getElementById('noRoutinesMessage');
+    if (mainContainer) mainContainer.style.display = 'none';
+    if (noRoutinesMessage) noRoutinesMessage.style.display = 'flex';
 }
 
 function crearTarjetaRutina(rutina) {
     const card = document.createElement('div');
     card.className = 'routine-card';
-    
     card.innerHTML = `
         <div class="routine-header">
             <h3 class="routine-title">${rutina.nombre}</h3>
             <div class="routine-actions">
-                <button class="action-btn favorite ${rutina.favorita ? 'active' : ''}">
-                    <i class="fas fa-heart"></i>
-                </button>
-                <button class="action-btn">
-                    <i class="fas fa-trash"></i>
-                </button>
+                <button class="action-btn favorite" title="Marcar como favorita"><i class="fas fa-heart"></i></button>
+                <button class="action-btn delete-btn" data-id-rutina="${rutina.id}" title="Eliminar rutina"><i class="fas fa-trash"></i></button>
             </div>
         </div>
-        
         <div class="routine-info">
             <div class="routine-meta">
-                <span><i class="fas fa-calendar"></i> ${rutina.dias} días</span>
-                <span><i class="fas fa-tag"></i> ${rutina.tipo || 'Personalizada'}</span>
-                <span><i class="fas fa-clock"></i> ${new Date(rutina.fechaCreacion || Date.now()).toLocaleDateString()}</span>
+                <span><i class="fas fa-calendar"></i> ${rutina.frecuencia} veces/sem</span>
+                <span><i class="fas fa-tag"></i> Personalizada</span>
+                <span><i class="fas fa-clock"></i> Creada: ${new Date(rutina.fecha_creacion).toLocaleDateString('es-ES')}</span>
             </div>
             <p class="routine-description">${rutina.descripcion || 'Sin descripción'}</p>
         </div>
-        
         <div class="routine-buttons">
-            <button class="btn-view">
-                <i class="fas fa-eye"></i> Ver Rutina
-            </button>
-            <button class="btn-edit">
-                <i class="fas fa-edit"></i> Editar
-            </button>
+            <button class="btn-view" data-id-rutina="${rutina.id}"><i class="fas fa-eye"></i> Ver Rutina</button>
+            <button class="btn-edit" data-id-rutina="${rutina.id}"><i class="fas fa-edit"></i> Editar</button>
         </div>
     `;
-    
     return card;
 }
 
 function actualizarEstadisticas(rutinas) {
-    document.getElementById('totalRoutines').textContent = rutinas.length;
-    document.getElementById('favoriteRoutines').textContent = rutinas.filter(r => r.favorita).length;
-    document.getElementById('completedWorkouts').textContent = '0';
+    const totalRoutinesSpan = document.getElementById('totalRoutines');
+    if (totalRoutinesSpan) totalRoutinesSpan.textContent = rutinas.length;
 }
 
-// Funcionalidad básica de filtros
-document.getElementById('searchRoutines')?.addEventListener('input', function(e) {
-    console.log('Buscando:', e.target.value);
-});
+// --- BLOQUE DE EVENTOS UNIFICADO ---
+// Este es el único event listener que necesitas para los clics en toda la página
+document.addEventListener('click', async function(e) {
+    const target = e.target;
 
-document.getElementById('filterByDays')?.addEventListener('change', function(e) {
-    console.log('Filtrar por días:', e.target.value);
-});
+    // Lógica para el botón VER
+    if (target.closest('.btn-view')) {
+        e.preventDefault();
+        const rutinaId = target.closest('.btn-view').dataset.idRutina;
+        if (rutinaId) {
+            window.location.href = `ver_rutina.html?id=${rutinaId}`;
+        }
+    }
 
-document.getElementById('filterByType')?.addEventListener('change', function(e) {
-    console.log('Filtrar por tipo:', e.target.value);
+    // Lógica para el botón EDITAR
+    if (target.closest('.btn-edit')) {
+        e.preventDefault();
+        const rutinaId = target.closest('.btn-edit').dataset.idRutina;
+        alert(`Funcionalidad "Editar" para la rutina ID: ${rutinaId} aún no implementada.`);
+    }
+
+    // Lógica para el botón BORRAR
+    if (target.closest('.delete-btn')) {
+        e.preventDefault();
+        const deleteButton = target.closest('.delete-btn');
+        const card = deleteButton.closest('.routine-card');
+        const rutinaId = deleteButton.dataset.idRutina;
+
+        if (rutinaId && confirm('¿Estás seguro de que quieres eliminar esta rutina de forma permanente?')) {
+            try {
+                const url = 'http://localhost/Tp_Final_Interfaces/backend/api/rutinas/borrar_rutina.php';
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_rutina: rutinaId })
+                });
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    card.style.transition = 'opacity 0.5s ease';
+                    card.style.opacity = '0';
+                    setTimeout(() => {
+                        card.remove();
+                        actualizarEstadisticas(document.querySelectorAll('.routine-card'));
+                    }, 500);
+                } else {
+                    alert('Error: ' + (result.mensaje || 'No se pudo borrar la rutina.'));
+                }
+            } catch (error) {
+                console.error('Error de conexión al borrar:', error);
+                alert('Error de conexión. No se pudo borrar la rutina.');
+            }
+        }
+    }
 });
