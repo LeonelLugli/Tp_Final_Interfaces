@@ -76,33 +76,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayRoutineDay(routine, dayIndex) {
-        const dayData = routine.days[dayIndex];
-        if (!dayData) {
-            displayNoRoutine(new Date().toISOString().split('T')[0], 'Día de descanso o datos no encontrados.');
-            return;
-        }
-
-        let exercisesHtml = dayData.exercises.map(ex => 
-            `<li>${ex}</li>`
-        ).join('');
-
-        routineSection.innerHTML = `
-            <h2>Rutina de Hoy</h2>
-            <div class="rutina-hoy">
-                <div class="rutina-card ${routine.tipo || ''}">
-                    <div class="rutina-header">
-                        <i class="fas fa-${(routine.tipo || 'casa') === 'gimnasio' ? 'dumbbell' : 'home'}"></i>
-                        <h3>${routine.title}</h3>
-                    </div>
-                    <h4>${dayData.name}</h4>
-                    <ul class="exercise-list-detailed">
-                        ${exercisesHtml}
-                    </ul>
-                </div>
-            </div>
-        `;
+    const dayData = routine.days[dayIndex];
+    if (!dayData) {
+        routineSection.innerHTML = `<h2>Rutina de Hoy</h2><p>No hay datos para este día.</p>`;
+        return;
     }
 
+    // Eliminar ejercicios duplicados
+    const ejerciciosUnicos = [...new Set(dayData.exercises)];
+
+    let exercisesHtml = ejerciciosUnicos.map(ex => `<li>${ex}</li>`).join('');
+
+    routineSection.innerHTML = `
+        <h2>Rutina de Hoy</h2>
+        <div class="rutina-hoy">
+            <div class="rutina-card ${routine.tipo || ''}">
+                <div class="rutina-header">
+                    <i class="fas fa-${(routine.tipo || 'casa') === 'gimnasio' ? 'dumbbell' : 'home'}"></i>
+                    <h3>${routine.title}</h3>
+                </div>
+                <h4>${dayData.name}</h4>
+                <ul class="exercise-list-detailed">
+                    ${exercisesHtml}
+                </ul>
+            </div>
+        </div>
+    `;
+}
     function displayNoRoutine(dateStr, message = 'No hay rutina programada') {
         const formattedDate = new Date(dateStr + 'T00:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
         routineSection.innerHTML = `
